@@ -1,0 +1,1458 @@
+{
+  "mainSite": "https://bakarus.co.il/ru/",
+  "productFieldsDescriptor": {
+    "sliceType": "Способ нарезки",
+    "sliceThickness": "Толщина нарезки",
+    "comment": "Комментарий мяснику"
+    },
+  "discounts": [
+    ["promo5%", 5],
+    ["promo10", 10],
+    ["promo10%", 10],
+    ["promo20", 20],
+    ["promo20%", 20],
+    ["promo30", 30],
+    ["promo30%", 30]
+  ],
+  "categories": [
+    {
+      "name": "Говядина",
+      "bgImage": "img/category_img1.webp",
+      "categoryHeadImage": "img/bg_head.webp",
+      "link": "beef",
+      "filterSets": [
+        {
+          "filterName": "Тип мяса",
+          "filterVariants": [
+            ["Фарш", "stuffing"],
+            ["Мясо", "meet"],
+            ["Стейки", "steak"],
+            ["Элитные стейки", "elit-steak"],
+            ["Ребра", "ribs"]
+          ]
+        }
+      ]
+    },
+    {
+      "name":  "Баранина",
+      "bgImage": "img/category_img2.webp",
+      "categoryHeadImage": "img/bg_head2.webp",
+      "link": "mutton",
+      "filterSets": [
+        {
+          "filterName": "Тип мяса",
+          "filterVariants": [
+            ["Фарш", "stuffing"],
+            ["Мясо", "meet"],
+            ["Стейки", "steak"],
+            ["Элитные стейки", "elit-steak"],
+            ["Ребра", "ribs"]
+          ]
+        }
+      ]
+    },
+    {
+      "name":  "Курица",
+      "bgImage": "img/chicken_category.webp",
+      "categoryHeadImage": "img/bg_head3.webp",
+      "link": "chicken",
+      "filterSets": [
+        {
+          "filterName": "Тип мяса",
+          "filterVariants": [
+            ["Фарш", "stuffing"],
+            ["Мясо", "meet"],
+            ["Грудинка", "brisket"]
+          ]
+        }
+      ]
+    },
+    {
+      "name":  "Мясо премиум",
+      "bgImage": "img/product_img7.webp",
+      "categoryHeadImage": "img/bg_head3.webp",
+      "link": "premium",
+      "filterSets": [
+        {
+          "filterName": "Вид мяса",
+          "filterVariants": [
+            ["Говядина", "beef"],
+            ["Баранина", "mutton"],
+            ["Курица", "chicken"]
+          ]
+        },
+        {
+          "filterName": "Тип мяса",
+          "filterVariants": [
+            ["Фарш", "stuffing"],
+            ["Стейки", "steak"],
+            ["Элитные стейки", "elit-steak"],
+            ["Ребра", "ribs"]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Стейки",
+      "bgImage": "img/product_img4.webp",
+      "categoryHeadImage": "img/bg_head2.webp",
+      "link": "steak",
+      "filterSets": [
+        {
+          "filterName": "Вид мяса",
+          "filterVariants": [
+            ["Говядина", "beef"],
+            ["Баранина", "mutton"],
+            ["Курица", "chicken"]
+          ]
+        },
+        {
+          "filterName": "Тип стейка",
+          "filterVariants": [
+            ["Томагавк", "tomahawk"],
+            ["С костью", "with-bone"],
+            ["Без кости", "without-bone"],
+            ["Элитные стейки", "elit-steak"]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Элитные стейки",
+      "bgImage": "img/category_img1.webp",
+      "categoryHeadImage": "img/bg_head5.webp",
+      "link": "elit-steak",
+      "filterSets": [
+        {
+          "filterName": "Вид мяса",
+          "filterVariants": [
+            ["Говядина", "beef"],
+            ["Баранина", "mutton"]
+          ]
+        }
+      ]
+    },
+    {
+      "name":  "Куски для копчения",
+      "bgImage": "img/category_img4.webp",
+      "categoryHeadImage": "img/bg_head4.webp",
+      "link": "smoking-pieces",
+      "filterSets": [
+        {
+          "filterName": "Вид мяса",
+          "filterVariants": [
+            ["Говядина", "beef"],
+            ["Баранина", "mutton"],
+            ["Курица", "chicken"]
+          ]
+        }
+      ]
+    },
+    {
+      "name":  "Ребра",
+      "bgImage": "img/product_img2.webp",
+      "categoryHeadImage": "img/bg_head.webp",
+      "link": "ribs",
+      "filterSets": [
+        {
+          "filterName": "Вид мяса",
+          "filterVariants": [
+            ["Говядина", "beef"],
+            ["Баранина", "mutton"]
+          ]
+        }
+      ]
+    },
+    {
+      "name":  "Фарш",
+      "bgImage": "img/product_img6.webp",
+      "categoryHeadImage": "img/bg_head2.webp",
+      "link": "stuffing",
+      "filterSets": [
+        {
+          "filterName": "Вид мяса",
+          "filterVariants": [
+            ["Говяжий", "beef"],
+            ["Куриный", "chicken"]
+          ]
+        }
+      ]
+    },
+    {
+      "name":  "Мясные наборы",
+      "bgImage": "img/thanks_image.webp",
+      "categoryHeadImage": "img/bg_head3.webp",
+      "link": "meet-sets",
+      "filterSets": [
+        {
+          "filterName": "Вид мяса",
+          "filterVariants": [
+            ["Говядина", "beef"],
+            ["Баранина", "mutton"],
+            ["Курица", "chicken"]
+          ]
+        }
+      ]
+    },
+    {
+      "name":  "Акционные товары",
+      "bgImage": "img/category_sales.jpg",
+      "categoryHeadImage": "img/bg_head4.webp",
+      "link": "sale",
+      "filterSets": [
+        {
+          "filterName": "Вид мяса",
+          "filterVariants": [
+            ["Говядина", "beef"],
+            ["Баранина", "mutton"],
+            ["Курица", "chicken"]
+          ]
+        },
+        {
+          "filterName": "Тип мяса",
+          "filterVariants": [
+            ["Фарш", "stuffing"],
+            ["Стейки", "steak"],
+            ["Ребра", "ribs"]
+          ]
+        }
+      ]
+    }
+  ],
+  "products": [
+    {
+      "id": 0,
+      "name": "Стейк Рибай на кости (говядина) 0",
+      "productImage": "img/product_img1.webp",
+      "images":[
+         "img/product_main_slide1.webp",
+         "img/product_main_slide2.webp",
+         "img/product_main_slide3.webp",
+         "img/product_main_slide2.webp"
+      ],
+      "price": 800,
+      "priceUnit": "₪",
+      "weight": 1.2,
+      "weightUnit": "кг",
+      "link": "/product/0",
+      "description":[
+        "Рибай является самым мясистым и самым «мраморным» из премиальных отрубов. Не случайно уровень мраморности всей туши определяют именно по срезу этого отруба.",
+         "Насладитесь непревзойденным вкусом и невероятной нежностью нашего стейка. Этот стейк сделан из лучшего мяса, подвергнут уникальным методам старения и имеет особый вкус букет, который даст вам лучшие гастрономические впечатления."
+      ],
+      "features": [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["beef", "steak", "elit-steak", "with-bone"]
+    },
+    {
+      "id": 1,
+      "name": "Ребро, говядина 1",
+      "productImage": "img/product_img2.webp",
+      "images":[
+        "img/product_main_slide2.webp",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide3.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 1200,
+      "priceUnit":  "₪",
+      "weight": 1.35,
+      "weightUnit":  "кг",
+      "link": "/product/1",
+      "description":  [
+        "Говяжьи ребра просто созданы для приготовления наваристого бульона — основы для супов.",
+        "Такой бульон отличается и прозрачностью, и густотой, словом, отвечает главным к нему требованиям. Впрочем, из ребрышек можно приготовить и котлеты, срезав мясо с костей в сыром виде и перемолов его. ",
+        "Различают ребра с тонким слоем мяса и корейку на ребрах."
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["beef", "ribs", "with-bone"]
+    },
+    {
+      "id": 2,
+      "name": "Мраморный Томагавк (говядина) 2",
+      "productImage": "img/product_img3.webp",
+      "images":[
+        "img/product_main_slide3.webp",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/2",
+      "description":  [
+        "Насладитесь непревзойденным вкусом и невероятной нежностью нашего стейка Ossobuco Aberdeen Sustained. Этот стейк сделан из лучшего мяса, подвергнут уникальным методам старения и имеет особый вкус букет, который даст вам лучшие гастрономические впечатления.",
+        "Вторая строка описания товара с id 2"
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["beef", "steak", "tomahawk", "elit-steak", "meet", "with-bone", "premium"]
+    },
+    {
+      "id": 3,
+      "name": "Фарш говяжий 3",
+      "productImage": "img/product_beef_stuffing.webp",
+      "images":[
+         "img/product_beef_stuffing.webp",
+         "img/product_main_slide2.webp",
+         "img/product_main_slide3.webp",
+         "img/product_main_slide2.webp"
+      ],
+      "price": 800,
+      "priceUnit":  "₪",
+      "weight": 1.2,
+      "weightUnit":  "кг",
+      "link": "/product/3",
+      "description":[
+         "Говяжий фарш — это мелко порубленная и перекрученная на мясорубке говядина с незначительным содержанием жира (80% мяса и 20% жира).",
+        "Это мясо очень полезное и содержит множество важных для организма веществ, среди которых медь, цинк, железо, магний, марганец и калий."
+      ],
+      "features": [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["beef", "stuffing", "without-bone", "sale"]
+    },
+    {
+      "id": 4,
+      "name": "Вырезка говяжья 4",
+      "productImage": "img/beef_tenderloin.jpg",
+      "images":[
+        "img/beef_tenderloin.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide3.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 1200,
+      "priceUnit":  "₪",
+      "weight": 1.35,
+      "weightUnit":  "кг",
+      "link": "/product/4",
+      "description":  [
+        "Вырезка — это спинная часть говяжьей туши, где находится самое нежное мясо, которое можно жарить целиком на гриле или нарезав на стейки. ",
+        "Итальянцы готовят из вырезки карпаччо, англичане — ростбиф."
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["beef", "meet", "without-bone", "smoking-pieces"]
+    },
+    
+    
+    {
+      "id": 5,
+      "name": "Баранья шея 5",
+      "productImage": "img/product_lamb1.jpg",
+      "images":[
+        "img/product_lamb1.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/5",
+      "description":  [
+        "Баранья шея — это часть туши, которая отлично подходит для отваривания и тушения.",
+        "В ней много жировых волокон, но именно это делает ее сочной."
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["mutton", "meet", "premium", "smoking-pieces", "without-bone"]
+    },
+    {
+      "id": 6,
+      "name": "Бараний окорок 6",
+      "productImage": "img/lamb_ham.jpg",
+      "images":[
+         "img/lamb_ham.jpg",
+         "img/product_main_slide2.webp",
+         "img/product_main_slide3.webp",
+         "img/product_main_slide2.webp"
+      ],
+      "price": 800,
+      "priceUnit":  "₪",
+      "weight": 1.2,
+      "weightUnit":  "кг",
+      "link": "/product/6",
+      "description":[
+         "Бараний окорок — большой кусок мяса, из которого получается отменное жаркое. Удачнее всего запечь его целиком и превратить в украшение стола.",
+        "Вторая строка описания товара с id 6"
+      ],
+      "features": [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["mutton", "meet", "with-bone", "premium"]
+    },
+    {
+      "id": 7,
+      "name": "Мякоть лопатки барашка 7",
+      "productImage": "img/lamb_shoulder.jpg",
+      "images":[
+        "img/lamb_shoulder.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide3.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 1200,
+      "priceUnit":  "₪",
+      "weight": 1.35,
+      "weightUnit":  "кг",
+      "link": "/product/7",
+      "description":  [
+        "Мякоть лопатки барашка — это настоящий деликатес из которого получаются отменные блюда. Не зря ее часто выбирают к праздникам, чтобы побаловать гостей.",
+        "Вторая строка описания товара с id 7"
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["mutton", "meet", "without-bone", "premium"]
+    },
+    {
+      "id": 8,
+      "name": "Ребро барашка 8",
+      "productImage": "img/lamb_rib.jpg",
+      "images":[
+        "img/lamb_rib.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/8",
+      "description":  [
+        "НРебро барашка, запеченное в рукаве или духовке — вкусное блюдо, которое украсит любой стол. Оно отлично сочетается с кашами, картофелем и овощным салатом.",
+        "Вторая строка описания товара с id 8"
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["mutton", "ribs", "with-bone", "sale"]
+    },
+    {
+      "id": 9,
+      "name": "Челогач барашка Премиум 9",
+      "productImage": "img/chelogach-barashka-premium.jpeg",
+      "images":[
+         "img/chelogach-barashka-premium.jpeg",
+         "img/product_main_slide2.webp",
+         "img/product_main_slide3.webp",
+         "img/product_main_slide2.webp"
+      ],
+      "price": 800,
+      "priceUnit":  "₪",
+      "weight": 1.2,
+      "weightUnit":  "кг",
+      "link": "/product/9",
+      "description":[
+         "Насладитесь непревзойденным вкусом и невероятной нежностью нашего стейка Ossobuco Aberdeen Sustained. Этот стейк сделан из лучшего мяса, подвергнут уникальным методам старения и имеет особый вкус букет, который даст вам лучшие гастрономические впечатления.",
+        "Вторая строка описания товара с id 9"
+      ],
+      "features": [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["mutton", "premium", "ribs", "with-bone"]
+    },
+    {
+      "id": 10,
+      "name": "Шея баранины без кости 10",
+      "productImage": "img/baranya-sheya-bez-kostej-1184.jpg",
+      "images":[
+        "img/baranya-sheya-bez-kostej-1184.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide3.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 1200,
+      "priceUnit":  "₪",
+      "weight": 1.35,
+      "weightUnit":  "кг",
+      "link": "/product/10",
+      "description":  [
+        "Насладитесь непревзойденным вкусом и невероятной нежностью нашего стейка Ossobuco Aberdeen Sustained. Этот стейк сделан из лучшего мяса, подвергнут уникальным методам старения и имеет особый вкус букет, который даст вам лучшие гастрономические впечатления.",
+        "Вторая строка описания товара с id 10"
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["mutton", "meet", "without-bone", "premium"]
+    },
+    
+    
+    {
+      "id": 11,
+      "name": "Филе куриное 11",
+      "productImage": "img/file-kurinoye.jpg",
+      "images":[
+        "img/file-kurinoye.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/11",
+      "description":  [
+        "Куриное мясо — диетический продукт и эффективная замена таким видам мяса, как свинина, баранина и частично говядина. ",
+        "Это отличный источник белка и аминокислот, при небольшом содержании калорий. ",
+        "При этом белое мясо содержит меньше жира, а тёмное богато железом."
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["chicken", "meet", "brisket", "smoking-pieces", "without-bone"]
+    },
+    {
+      "id": 12,
+      "name": "Мясо четверти куриной 12",
+      "productImage": "img/myaso-chetverti.jpg",
+      "images":[
+        "img/myaso-chetverti.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/11",
+      "description":  [
+        "Куриное мясо — диетический продукт и эффективная замена таким видам мяса, как свинина, баранина и частично говядина. ",
+        "Это отличный источник белка и аминокислот, при небольшом содержании калорий. ",
+        "При этом белое мясо содержит меньше жира, а тёмное богато железом."
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["chicken", "meet", "without-bone"]
+    },
+    {
+      "id": 13,
+      "name": "Четверть куриная 13",
+      "productImage": "img/chetvert-kurinaya.jpg",
+      "images":[
+        "img/chetvert-kurinaya.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/11",
+      "description":  [
+        "Куриное мясо — диетический продукт и эффективная замена таким видам мяса, как свинина, баранина и частично говядина. ",
+        "Это отличный источник белка и аминокислот, при небольшом содержании калорий. ",
+        "При этом белое мясо содержит меньше жира, а тёмное богато железом."
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["chicken", "meet", "with-bone"]
+    },
+    {
+      "id": 14,
+      "name": "Фарш куриный филейный 14",
+      "productImage": "img/farsh-kurinyj.jpg",
+      "images":[
+        "img/farsh-kurinyj.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/11",
+      "description":  [
+        "Куриное мясо — диетический продукт и эффективная замена таким видам мяса, как свинина, баранина и частично говядина. ",
+        "Фарш куриный филейный — диетическое мясо, которое идеально для приготовления котлет, фрикаделек и фаршировки овощей.."
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["chicken", "stuffing", "without-bone", "sale"]
+    },
+    {
+      "id": 15,
+      "name": "Стейк куриный 15",
+      "productImage": "img/file-kurinoye.jpg",
+      "images":[
+        "img/file-kurinoye.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/11",
+      "description":  [
+        "Куриное мясо — диетический продукт и эффективная замена таким видам мяса, как свинина, баранина и частично говядина. ",
+        "Это отличный источник белка и аминокислот, при небольшом содержании калорий. ",
+        "При этом белое мясо содержит меньше жира, а тёмное богато железом."
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["chicken", "meet", "brisket", "steak", "smoking-pieces", "without-bone"]
+    },
+    
+    
+    {
+      "id": 16,
+      "name": "Гуляш куриный 16",
+      "productImage": "img/gulyash-kurinyy.jpg",
+      "images":[
+        "img/gulyash-kurinyy.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/11",
+      "description":  [
+        "Куриный гуляш — это не готовое блюдо, а обрезь курицы, без костей. Вам останется купить его, порезать на более мелкие кусочки, обжарить или потушить.",
+        "Аккуратно разделанная в гуляш курица есть в нашем ассортименте «КупиРакушку». По цене гуляш дешевле, чем куриное филе, но не уступает ему по качеству. Оставляйте заказ на сайте и ожидайте доставку в этот же день. "
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["meet-sets", "chicken", "without-bone", "meet", "sale"]
+    },
+    {
+      "id": 17,
+      "name": "Обрезь говяжья чищеная 17",
+      "productImage": "img/obrez-govyazhya.jpg",
+      "images":[
+        "img/obrez-govyazhya.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/11",
+      "description":  [
+        "Говяжья обрезь — бюджетный продукт, из которого можно приготовить много блюд."
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["meet-sets", "beef", "without-bone", "meet", "sale"]
+    },
+    {
+      "id": 18,
+      "name": "Обрезь барашка мясная 18",
+      "productImage": "img/myasnaya-obrez-barashka.jpg",
+      "images":[
+        "img/myasnaya-obrez-barashka.jpg",
+        "img/product_main_slide1.webp",
+        "img/product_main_slide2.webp",
+        "img/product_main_slide2.webp"
+      ],
+      "price": 650,
+      "priceUnit":  "₪",
+      "weight": 1,
+      "weightUnit":  "кг",
+      "link": "/product/11",
+      "description":  [
+        "Если вы хотите порадовать себя вкусными и полезными блюдами, закажите охлажденную мясную обрезь баранины. ",
+        "Из нее можно приготовить котлеты, шницели, жаркое, можно варить с ней супы, а сделав из нее фарш, можно использовать в качестве добавки для вареников, пельменей, блюд для маленьких детей, а также сосисок."
+      ],
+      "features":  [
+        ["Мясная часть", "Биток"],
+        ["Порода", "Ангус"],
+        ["Тип мяса", "Говядина"],
+        ["Способ приготовления", "Для жарки / Для гриля"],
+        ["Упаковка", "Бумага"]
+      ],
+      "type": ["meet-sets", "mutton", "without-bone", "meet", "sale"]
+    }
+  ],
+  "header": {
+    "logoLink": "img/main_logo.svg",
+    "navList": [
+      ["/", "Главная"],
+      ["/catalog", "Каталог продукции"],
+      ["/about", "О компании"],
+      ["/contacts", "Контакты"],
+      ["/delivery", "Доставка и оплата"]
+    ],
+    "headerPhone": [
+      "tel:+443965647822",
+      "+ 44 (396) 564 78 22"
+    ]
+  },
+  "pages": {
+    "mainPage": {
+      "sections": [
+        {
+          "sectionName": "Главная",
+          "slider": [
+            {
+              "slideBg": "img/bg_head.webp",
+              "slideTitle": "Качественное мясо для вас и ваших родных",
+              "slideDescription": "Первоклассное органическое мясо мясо для настоящих гурманов: выбор и качество от нашей мясной фабрики",
+              "slideProduct": {
+                "productTopTitle": "BAKARUS MEAT",
+                "productBottomTitle": "Мраморная говядина",
+                "productId": "1",
+                "productImage": "img/head_product.jpg",
+                "productPrice": "120 ₪"
+              }
+            },
+            {
+              "slideBg": "img/bg_head.webp",
+              "slideTitle": "Качественное мясо для вас и ваших родных 2",
+              "slideDescription": "Первоклассное органическое мясо мясо для настоящих гурманов: выбор и качество от нашей мясной фабрики",
+              "slideProduct": {
+                "productTopTitle": "DRY-AGED",
+                "productBottomTitle": "Мраморная говядина",
+                "productId": "1",
+                "productImage": "img/product_img1.jpg",
+                "productPrice": "120 ₪"
+              }
+            }
+          ]
+        },
+        {
+          "sectionName": "Популярные товары",
+          "sectionTitle": "Популярные товары",
+          "popularCategories": [
+            {
+              "name": "Стейки",
+              "bgImage": "img/product_img4.webp",
+              "link": "steak"
+            },
+            {
+              "name":  "Ребра",
+              "bgImage": "img/product_img2.webp",
+              "link": "ribs"
+            },
+            {
+              "name":  "Фарш",
+              "bgImage": "img/product_img6.webp",
+              "link": "stuffing"
+            },
+            {
+              "name":  "Мясные наборы",
+              "bgImage": "img/obrez-govyazhya.jpg",
+              "link": "meet-sets"
+            }
+          ]
+        },
+        {
+          "sectionName": "Новинки",
+          "sectionTitle": "Новинки",
+          "outputProductsKeys": [0, 1, 2, 6, 7, 10]
+        },
+        {
+          "sectionName": "Категории",
+          "popularCategories": [
+            {
+              "name": "Элитные стейки",
+              "bgImage": "img/category_img1.webp",
+              "link": "elit-steak"
+            },
+            {
+              "name":  "Акционные товары",
+              "bgImage": "img/category_img2.webp",
+              "link": "sale"
+            },
+            {
+              "name":  "Мясо премиум",
+              "bgImage": "img/category_img3.webp",
+              "link": "premium"
+            },
+            {
+              "name":  "Мясные наборы",
+              "bgImage": "img/category_img4.webp",
+              "link": "meet-sets"
+            }
+          ]
+        },
+        {
+          "sectionName": "Инфо колонки",
+          "cols": [
+            {
+              "title": "Доставка",
+              "description": "Мы предлагаем надежную и быструю доставку свежего мяса прямо в ваш дом или офис."
+            },
+            {
+              "title": "Упаковка",
+              "description": "Мы обеспечиваем безопасную доставку продуктов с особым вниманием к упаковке."
+            },
+            {
+              "title": "Контроль качества",
+              "description": "Мы гарантируем высокое качество нашей продукции через контроль на каждом этапе."
+            }
+          ]
+        },
+        {
+          "sectionName": "Описание",
+          "sectionBg": "img/bg_about.jpg",
+          "sectionTitle": "Сердце нашего вкуса: наша собственная ферма",
+          "sectionText": ["За 25 лет работы в области переработки мяса основатель нашей компании накопил исключительный опыт и знания в области мяса.", "Мы гордимся тем, что не только производим мясные продукты, но и создаем настоящие шедевры мясного искусства."]
+        },
+        {
+          "sectionName": "Цитата",
+          "sectionQuote": "«Каждое животное на нашей ферме не просто продукт, это часть нашей семьи и искусство вкуса»",
+          "quoteAuthor": "(c) Джон Смит, владелец фермы"
+        },
+        {
+          "sectionName": "Обратная связь",
+          "sectionTitle": "Оптовым покупателям",
+          "sectionSubTitle": "Хотите сделать оптовый заказ или узнать больше? Заполните форму обратной связи, или свяжитесь с нами чтобы обсудить детальную инфомацию.",
+          "screenForm": {
+            "formTitle": "Заполните форму",
+            "formSubTitle": "Мы свяжемся с вами как можно скорее, чтобы обсудить ваш заказ и ответить на все ваши вопросы",
+            "formFields": [
+              {
+                "fieldType": "text",
+                "fieldName": "ВАШЕ ИМЯ",
+                "fieldPlaceholder": "ВАШЕ ИМЯ"
+              },
+              {
+                "fieldType": "tel",
+                "fieldName": "НОМЕР ТЕЛЕФОНА",
+                "fieldPlaceholder": "НОМЕР ТЕЛЕФОНА"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "catalogPage": {
+      "sections": [
+        {
+          "sectionName": "Шапка",
+          "sectionBg": "img/bg_head2.webp",
+          "sectionTitle": "Каталог продукции",
+          "breadcrumbs": [
+            ["/", "Главная"]
+          ]
+        },
+        {
+          "sectionName": "Категории",
+          "categories": [
+            {
+              "name": "Говядина",
+              "bgImage": "img/category_img1.webp",
+              "link": "beef"
+            },
+            {
+              "name":  "Баранина",
+              "bgImage": "img/category_img2.webp",
+              "link": "mutton"
+            },
+            {
+              "name":  "Курица",
+              "bgImage": "img/category_img3.webp",
+              "link": "chicken"
+            },
+            {
+              "name":  "Куски для копчения",
+              "bgImage": "img/category_img4.webp",
+              "link": "smoking-pieces"
+            },
+            {
+              "name": "Элитные стейки",
+              "bgImage": "img/category_img1.webp",
+              "link": "elit-steak"
+            },
+            {
+              "name":  "Акционные товары",
+              "bgImage": "img/category_img2.webp",
+              "link": "sales"
+            },
+            {
+              "name":  "Мясо премиум",
+              "bgImage": "img/category_img3.webp",
+              "link": "premium"
+            },
+            {
+              "name": "Стейки",
+              "bgImage": "img/populars_slide1.webp",
+              "link": "steak"
+            },
+            {
+              "name":  "Ребра",
+              "bgImage": "img/populars_slide2.webp",
+              "link": "ribs"
+            },
+            {
+              "name":  "Фарш",
+              "bgImage": "img/populars_slide3.webp",
+              "link": "stuffing"
+            },
+            {
+              "name":  "Мясные наборы",
+              "bgImage": "img/populars_slide4.webp",
+              "link": "meet-sets"
+            }
+          ]
+        },
+        {
+          "sectionName": "Инфо колонки",
+          "cols": [
+            {
+              "title": "Доставка",
+              "description": "Мы предлагаем надежную и быструю доставку свежего мяса прямо в ваш дом или офис."
+            },
+            {
+              "title": "Упаковка",
+              "description": "Мы обеспечиваем безопасную доставку продуктов с особым вниманием к упаковке."
+            },
+            {
+              "title": "Контроль качества",
+              "description": "Мы гарантируем высокое качество нашей продукции через контроль на каждом этапе."
+            }
+          ]
+        },
+        {
+          "sectionName": "Обратная связь",
+          "sectionTitle": "Оптовым покупателям",
+          "sectionSubTitle": "Хотите сделать оптовый заказ или узнать больше? Заполните форму обратной связи, или свяжитесь с нами чтобы обсудить детальную инфомацию.",
+          "screenForm": {
+            "formTitle": "Заполните форму",
+            "formSubTitle": "Мы свяжемся с вами как можно скорее, чтобы обсудить ваш заказ и ответить на все ваши вопросы",
+            "formFields": [
+              {
+                "fieldType": "text",
+                "fieldName": "ВАШЕ ИМЯ",
+                "fieldPlaceholder": "ВАШЕ ИМЯ"
+              },
+              {
+                "fieldType": "tel",
+                "fieldName": "НОМЕР ТЕЛЕФОНА",
+                "fieldPlaceholder": "НОМЕР ТЕЛЕФОНА"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "category": {
+      "sections": [
+        {
+          "sectionName": "Каталог продуктов",
+          "catalogFilters": {
+            "filters": [
+              {
+                "filterTitle": "ВИД МЯСА",
+                "filterVariants": ["Стейки", "Ребра", "Кебабы", "Бифштексы"]
+              },
+              {
+                "filterTitle":  "МЯСНАЯ ЧАСТЬ",
+                "filterVariants":  ["Без кости", "С костью"]
+              },
+              {
+                "filterTitle":  "КАТЕГОРИЯ",
+                "filterVariants":  ["Говядина","Баранина","Курица","Куски для копчения"]
+              },
+              {
+                "filterTitle":  "ТИП НАРЕЗКИ",
+                "filterVariants":  ["Без нарезки", "Слайсами", "Большими кусками", "Стейки", "На шашлык"]
+              }
+            ],
+            "sorting": ["ЦЕНА ПО ВОЗРОСТАНИЮ", "ЦЕНА ПО УБыВАНИЮ", "НОВЕЕ", "Старее"]
+          },
+          "outputProducts": [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2]
+        },
+        {
+          "sectionName": "Инфо колонки",
+          "cols": [
+            {
+              "title": "Доставка",
+              "description": "Мы предлагаем надежную и быструю доставку свежего мяса прямо в ваш дом или офис."
+            },
+            {
+              "title": "Упаковка",
+              "description": "Мы обеспечиваем безопасную доставку продуктов с особым вниманием к упаковке."
+            },
+            {
+              "title": "Контроль качества",
+              "description": "Мы гарантируем высокое качество нашей продукции через контроль на каждом этапе."
+            }
+          ]
+        }
+      ]
+    },
+    "product": {
+      "sections": [
+        {
+          "sectionName": "Продукт",
+          "productFeatures": ["name", "images", "price", "weight", "description", "features"]
+        },
+        {
+          "sectionName": "Рекомендуем",
+          "outputProducts": [0, 1, 2, 0]
+        },
+        {
+          "sectionName": "С этим товаром покупают",
+          "outputProducts": [0, 1, 2, 0]
+        },
+        {
+          "sectionName": "Инфо колонки",
+          "cols": [
+            {
+              "title": "Доставка",
+              "description": "Мы предлагаем надежную и быструю доставку свежего мяса прямо в ваш дом или офис."
+            },
+            {
+              "title": "Упаковка",
+              "description": "Мы обеспечиваем безопасную доставку продуктов с особым вниманием к упаковке."
+            },
+            {
+              "title": "Контроль качества",
+              "description": "Мы гарантируем высокое качество нашей продукции через контроль на каждом этапе."
+            }
+          ]
+        },
+        {
+          "sectionName": "SEO текст",
+          "textCols": [
+            ["Добро пожаловать на мясную фабрику - ваш источник изысканных мясных блюд и высококачественных продуктов. Мы гордимся нашим 25-летним опытом работы с мясом, специальными методами старения и поддержкой местных фермеров.", "Наша миссия состоит в том, чтобы предложить клиентам только лучшее мясо, которое сочетает в себе уникальный вкус, изысканность и безупречное качество."],
+            ["Мы работаем с тщательным контролем качества и приверженностью к природе.", "Выбор мясной фабрики - это выбор истинного вкуса и надежности. Свяжитесь с нами для получения лучших впечатлений от мяса, которые делают вкус шедевр каждого из ваших блюд."]
+          ],
+          "image": "img/text_wide_image.webp"
+        }
+      ]
+    },
+    "cart": {
+      "sections": [
+        {
+          "sectionName": "Корзина",
+          "sectionTitle": "Корзина",
+          "sidebarBlocks": [
+            {
+              "title": "В вашей корзине 3 товара"
+            },
+            {
+              "title": "Промокод на скидку"
+            }
+          ]
+        }
+      ]
+    },
+    "checkout": {
+      "sections": [
+        {
+          "sectionName": "Оформление заказа",
+          "sectionTitle": "Оформление заказа",
+          "formLines": [
+            {
+              "formLineTitle": "Контактные данные",
+              "formLineFields": [
+                {
+                  "elementType": "input:text",
+                  "elementName": "Фамилия",
+                  "elementPlaceholder": "Фамилия",
+                  "isRequired": true
+                },
+                {
+                  "elementType": "input:text",
+                  "elementName": "Имя",
+                  "elementPlaceholder": "Имя",
+                  "isRequired": true
+                },
+                {
+                  "elementType": "select",
+                  "elementName": "Город",
+                  "elementPlaceholder": "Город",
+                  "selectOptions": [
+                    "Город",
+                    "Sint, corporis, ipsa.",
+                    "Natus, sed, dolor!"
+                  ],
+                  "isRequired": false
+                },
+                {
+                  "elementType": "input:tel",
+                  "elementName": "Номер телефона",
+                  "elementPlaceholder": "Номер телефона",
+                  "isRequired": true
+                },
+                {
+                  "elementType": "input:email",
+                  "elementName": "E-mail",
+                  "elementPlaceholder": "E-mail",
+                  "isRequired": false
+                }
+              ]
+            },
+            {
+              "formLineTitle": "Доставка", 
+              "formLineFields": [
+                {
+                  "elementType": "select",
+                  "elementName": "Israel Postal",
+                  "elementPlaceholder": "Israel Postal",
+                  "selectOptions": [
+                    "Israel Postal",
+                    "Sint, corporis, ipsa.",
+                    "Natus, sed, dolor!"
+                  ],
+                  "isRequired": false
+                },
+                {
+                  "elementType":  "input:text",
+                  "elementName":  "АДРЕС ДОСТАВКИ",
+                  "elementPlaceholder":  "АДРЕС ДОСТАВКИ",
+                  "isRequired": true
+                }
+              ]
+            },
+            {
+              "formLineTitle": "Оплата",
+              "formLineFields": [
+                {
+                  "elementType": "select",
+                  "elementName": "онлайн на сайте",
+                  "elementPlaceholder": "онлайн на сайте",
+                  "selectOptions": [
+                    "онлайн на сайте",
+                    "Sint, corporis, ipsa.",
+                    "Natus, sed, dolor!"
+                  ],
+                  "isRequired": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "thanks": {
+      "sections": [
+        {
+          "sectionName": "Шапка",
+          "sectionTitle": "Cпасибо за ваш заказ",
+          "image": "img/thanks_image.webp",
+          "textLines": [
+            "Мы благодарны за ваш выбор и доверие к нашей продукции. Ваш заказ был получен, и мы обработаем его для вас в ближайшее время.",
+            "Если у вас есть какие-либо вопросы или потребности, не стесняйтесь связаться с нами."
+          ]
+        }
+      ]
+    },
+    "delivery": {
+      "sections": [
+        {
+          "sectionName": "Шапка",
+          "sectionBg": "img/bg_head4.jpg",
+          "sectionTitle": "Доставка и оплата",
+          "breadcrumbs": [
+            ["/", "Главная"]
+          ]
+        },
+        {
+          "sectionName": "Доставка",
+          "sectionTitle": "Доставка",
+          "textLines": [
+            {
+              "lineStrong": "Выбор способа доставки:",
+              "lineText": "Мы предлагаем несколько способов доставки, включая курьерскую доставку, самовывоз и доставку по почте. Выберите тот, который лучше всего соответствует вашим потребностям."
+            },
+            {
+              "lineStrong": "Стоимость доставки:",
+              "lineText": "Стоимость доставки может варьироваться в зависимости от метода и вашего региона. Подробную информацию можно найти на нашем сайте или получить от наших операторов."
+            },
+            {
+              "lineStrong": "Время доставки:",
+              "lineText": "Мы стараемся обеспечить как можно более быструю доставку, и сроки могут варьироваться в зависимости от вашего места жительства и выбранного способа доставки."
+            },
+            {
+              "lineStrong": "Инструкции по доставке:",
+              "lineText": "Для обеспечения успешной доставки заказа, пожалуйста, проверьте правильный адрес, укажите контактные данные и рассмотреть возможность получения заказа в выбранное время."
+            }
+          ],
+          "frameText": "",
+          "image": "img/delivery_img1.webp"
+        },
+        {
+          "sectionName": "Инфо колонки",
+          "cols": [
+            {
+              "title": "Бесплатная доставка",
+              "description": "Для заказов на сумму от 2450 ₪ мы предоставляем бесплатную доставку, делая процесс доставки более приятным для вас."
+            },
+            {
+              "title": "Упаковка",
+              "description": "Мы гарантируем, что каждый продукт достигнет вас в безопасном состоянии. Наша упаковка является частью нашей общей философии."
+            },
+            {
+              "title": "Температурный режим",
+              "description": "Мы придерживаемся всех необходимых температурных режимов во время доставки для обеспечения качества и свежести продуктов."
+            }
+          ]
+        },
+        {
+          "sectionName": "Оплата",
+          "sectionTitle": "Оплата",
+          "textLines": [
+            {
+              "lineStrong": "Кредитные и дебетовые карты:",
+              "lineText": "Мы принимаем платежи с использованием всех популярных кредитных и дебетовых карт, так что вы можете удобно платить онлайн."
+            },
+            {
+              "lineStrong": "Наличный расчет при доставку:",
+              "lineText": "Для Вашего удобства, мы также предлагаем возможность оплаты наличными при получении заказа."
+            },
+            {
+              "lineStrong": "Электронные деньги:",
+              "lineText": "Вы можете оплатить заказ, используя электронные деньги, такие как PayPal, Apple Pay, Google Pay и другие."
+            },
+            {
+              "lineStrong": "Криптовалюта и Bit:",
+              "lineText": "Вы можете оплатить свои заказы, используя Bitcoin, Tether, а также переводом с биржы Bit."
+            }
+          ],
+          "frameText": "Мы предлагаем различные варианты оплаты, так что вы можете выбрать тот, который подходит вам лучше всего",
+          "image": "img/delivery_img2.webp"
+        }
+      ]
+    },
+    "about": {
+      "sections": [
+        {
+          "sectionName": "Шапка",
+          "sectionBg": "img/bg_head5.webp",
+          "sectionTitle": "О компании",
+          "breadcrumbs": [
+            ["/", "Главная"]
+          ]
+        },
+        {
+          "sectionName": "Секреты вкуса: наша история и миссия",
+          "sectionTitle": "Секреты вкуса: наша история и миссия",
+          "textLines": [
+            "Фабрика основана с идеей перевоплощения мяса в изысканные мясные блюда более 25 лет назад. Все началось в скромном сельском хозяйстве, где наш основатель, страстный фермер и гурман, начал свое путешествие в мир мяса. Он верил, что каждый кусок мяса может быть произведением искусства, и его богатый вкус может украсить стол любой семьи.",
+            "С годами компания постепенно росла, завоевывая сердца клиентов своей исключительной продукцией и особыми методами старения мяса, что придавало блюдам неповторимый вкус. Нас отличали высокое качество и эстетика каждого конечного продукта, так что наши клиенты всегда окружены роскошью на своих столах."
+          ],
+          "image": "img/delivery_img3.webp"
+        },
+        {
+          "sectionName": "Инфо колонки",
+          "cols": [
+            {
+              "title": "Качество",
+              "description": "Для заказов на сумму от 2450 ₪ мы предоставляем бесплатную доставку, делая процесс доставки более приятным для вас."
+            },
+            {
+              "title": "Машрут",
+              "description": "Мы тщательно следуем кашрутским стандартам, чтобы вы могли быть уверены в качестве и соответствии нашей продукции требованиям."
+            },
+            {
+              "title": "Эстетика",
+              "description": "Мы уделяем особое внимание эстетике каждого кулинарного творения. Наши блюда - это не просто еда, а настоящие шедевры кулинарного искусства."
+            }
+          ]
+        },
+        {
+          "sectionName": "Описание",
+          "sectionBg": "img/bg_about.jpg",
+          "sectionTitle": "Сердце нашего вкуса: наша собственная ферма",
+          "sectionText": ["За 25 лет работы в области переработки мяса основатель нашей компании накопил исключительный опыт и знания в области мяса.", "Мы гордимся тем, что не только производим мясные продукты, но и создаем настоящие шедевры мясного искусства."]
+        },
+        {
+          "sectionName": "Цитата",
+          "sectionQuote": "«Каждое животное на нашей ферме не просто продукт, это часть нашей семьи и искусство вкуса»",
+          "quoteAuthor": "(c) Джон Смит, владелец фермы"
+        },
+        {
+          "sectionName": "Награды и сертификаты",
+          "sectionTitle": "Награды и сертификаты",
+          "sertBlocks": [
+            ["img/sert1.webp", "Золотой знак утонченности"],
+            ["img/sert2.webp", "Награда за лучший вкус"],
+            ["img/sert3.webp", "Сертификат экологически чистой продукции"],
+            ["img/sert2.webp", "Награда за исключительный гастрономический вклад"]
+          ]
+        }
+      ]
+    },
+    "contacts": {
+      "sections": [
+        {
+          "sectionName": "Контакты",
+          "sectionTitle": "Контакты",
+          "sectionSubTitle": "Если у вас есть какие-либо запросы или нужна консультация, наша команда всегда в контакте, готова предоставить вам информацию и ответить на ваши вопросы.",
+          "textLines": [
+            "Адрес: 1234, улица. Neveh Yehoshua 36",
+            "Телефон: +380 12 345 6789",
+            "E-mail: info@myasnafabryka.com"
+          ],
+          "links": [
+            ["INSTAGRAM", "https://www.instagram.com/"],
+            ["FACEBOOK", "https://www.facebook.com/"]
+          ],
+          "map": {
+            "center": ["32.05994749209159", "34.833281721141695"],
+            "pin": "img/map_pin.svg"
+          }
+        },
+        {
+          "sectionName": "Обратная связь",
+          "sectionTitle": "Оптовым покупателям",
+          "sectionSubTitle": "Хотите сделать оптовый заказ или узнать больше? Заполните форму обратной связи, или свяжитесь с нами чтобы обсудить детальную инфомацию.",
+          "screenForm": {
+            "formTitle": "Заполните форму",
+            "formSubTitle": "Мы свяжемся с вами как можно скорее, чтобы обсудить ваш заказ и ответить на все ваши вопросы",
+            "formFields": [
+              {
+                "fieldType": "text",
+                "fieldName": "ВАШЕ ИМЯ",
+                "fieldPlaceholder": "ВАШЕ ИМЯ"
+              },
+              {
+                "fieldType": "tel",
+                "fieldName": "НОМЕР ТЕЛЕФОНА",
+                "fieldPlaceholder": "НОМЕР ТЕЛЕФОНА"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "notFound": {
+      "sections": [
+        {
+          "sectionName": "404",
+          "sectionTitle": "Страница не найдена",
+          "sectionSubTitle": "Вы могли неправильно ввести адрес или страницу переместили",
+          "sectionDecorImg": "img/404_decor_img.webp",
+          "sectionImg": "img/404.svg"
+        }
+      ]
+    }
+  },
+  "footer": {
+    "footerTopLine": {
+      "logoLink": "img/main_logo.svg",
+      "logoDescription": "Мы гордимся тем, что не только производим мясные продукты, но и создаем настоящие шедевры мясного искусства.",
+      "footerCols": [
+        {
+          "title": "О КОМПАНИИ",
+          "links": [
+            ["/about", "Кто мы такие?"],
+            ["/catalog", "Каталог продукции"]
+          ]
+        },{
+          "title": "КОНТАКТЫ",
+          "links": [
+            ["tel:+380123456789", "+38 (012) 345 6789"],
+            ["tel:+380123456789", "+38 (012) 345 6789"]
+          ]
+        }
+      ],
+      "socials": [
+        ["/", "img/fb.svg"],
+        ["/", "img/insta.svg"],
+        ["/", "img/whatsup.svg"],
+        ["/", "img/waze.svg"]
+      ]
+    },
+    "footerBottomLine": {
+      "copyright": "© 2023 Balarus. Все права защищены.",
+      "footerBottomLinks": [
+        ["/policy", "Политика конфиденциальности"],
+        ["/terms", "Условия использования"]
+      ]
+    }
+  }
+}
