@@ -7,8 +7,8 @@ import nfImage from "../img/404.svg"
 import nfDecorImage from "../img/404_decor_img.webp"
 
 export function NotFound() {
-  const [ sectionData, setSectionData ] = useState('');
-  const [ spinner, setSpinner ] = useState(true);
+  const [sectionData, setSectionData] = useState();
+  const [spinner, setSpinner] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       const sectionsData = await ContentService.getNotFound()
@@ -19,13 +19,16 @@ export function NotFound() {
     fetchData()
   }, []);
   let spinnerClass = 'section_min_height';
+  if (spinner || !sectionData) {
+    return <Preloader customClass={spinnerClass}/>
+  }
   let {sectionName, sectionTitle, sectionSubTitle} = sectionData;
   // console.log(sectionData)
   return (
-    spinner ? <Preloader customClass={spinnerClass} /> : <section data-title={sectionName} className="section-cart remove_pt remove_pb">
+    <section data-title={sectionName} className="section-cart remove_pt remove_pb">
       <div className="section_bg">
         <img className="nf_decor" src={decorImage} alt="decor"/>
-        <div className="bg_noise" />
+        <div className="bg_noise"/>
       </div>
       <div className="screen_content">
         <div className="thanks_sides half_sides nf_sides">

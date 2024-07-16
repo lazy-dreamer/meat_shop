@@ -1,23 +1,21 @@
-import React, {useContext, useEffect, useState} from "react";
-import {Preloader} from "../Preloader";
+import React, {useEffect, useState} from "react";
+import {Preloader} from "../components/Preloader";
 import {Link, useParams} from "react-router-dom";
 import Slider from "react-slick";
-import {ProductService} from '../../services/product.service'
-import {QuantityCounter} from "../QuantityCounter";
-import {CartContext} from "../../providers/CartProvider";
-import {logDOM} from "@testing-library/react";
+import {ProductService} from '../services/product.service'
+import {QuantityCounter} from "../components/QuantityCounter";
 
 
 export function ProductPage() {
   const {id} = useParams();
-  const [ product, setProduct ] = useState('');
-  const [ spinner, setSpinner ] = useState(true);
-  const [ productWeight, setProductWeight ] = useState('');
-  const [ productPrice, setProductPrice ] = useState('');
+  const [product, setProduct] = useState('');
+  const [spinner, setSpinner] = useState(true);
+  const [productWeight, setProductWeight] = useState('');
+  const [productPrice, setProductPrice] = useState('');
   
-  const [ totalWeight, setTotalWeight ] = useState('');
-  const [ totalPrice, setTotalPrice ] = useState('');
-  const [ fieldsData, setFieldsData ] = useState({
+  const [totalWeight, setTotalWeight] = useState('');
+  const [totalPrice, setTotalPrice] = useState('');
+  const [fieldsData, setFieldsData] = useState({
     sliceType: '',
     sliceThickness: '',
     comment: ''
@@ -45,18 +43,19 @@ export function ProductPage() {
   let {name, images, price, priceUnit, weight, weightUnit, description, features} = product;
   let priceIncrease = parseInt((parseFloat(totalWeight) / productWeight).toFixed());
   
-  const calculateTotalPrice = function() {
+  const calculateTotalPrice = function () {
     if (isNaN(priceIncrease)) {
       priceIncrease = 1
     }
     setTotalPrice(priceIncrease * productPrice)
   }
-
-  const { cartItems, setCartItems } = useContext(CartContext);
-
+  
+  const cartItems: any = [];
+  
   function isProductIdInArray(productId, arrayOfObjects) {
     return arrayOfObjects.some(obj => obj.id === productId);
   }
+  
   function getItemCountById(id, arrayOfObjects) {
     for (const obj of arrayOfObjects) {
       if (obj.id === id) {
@@ -72,31 +71,31 @@ export function ProductPage() {
       "image": images[0],
       "title": name,
       "price": price,
-      "priceUnit":priceUnit,
-      "itemCount": totalPrice/price,
+      "priceUnit": priceUnit,
+      "itemCount": totalPrice / price,
       "weight": weight,
-      "weightUnit":weightUnit,
+      "weightUnit": weightUnit,
       "cartItemInfo": fieldsData
     };
-
-    if(isProductIdInArray(parseInt(id), cartItems)) {
-     let newCartItems = cartItems.filter((item) => item.id !== parseInt(id));
-     let itemCountInCart = getItemCountById(parseInt(id), cartItems);
-     let newCartItem2 = {
+    
+    if (isProductIdInArray(parseInt(id), cartItems)) {
+      let newCartItems = cartItems.filter((item) => item.id !== parseInt(id));
+      let itemCountInCart = getItemCountById(parseInt(id), cartItems);
+      let newCartItem2 = {
         ...newCartItem,
-        itemCount: (totalPrice/price) + itemCountInCart
+        itemCount: (totalPrice / price) + itemCountInCart
       };
-      setCartItems([...newCartItems, newCartItem2]);
+      //setCartItems([...newCartItems, newCartItem2]);
     } else {
-      setCartItems([...cartItems, newCartItem]);
+      //setCartItems([...cartItems, newCartItem]);
     }
   };
   
-
+  
   // console.log(totalWeight)
   
   return (
-    spinner ? <Preloader customClass={spinnerClass} /> : <section className="section-product">
+    spinner ? <Preloader customClass={spinnerClass}/> : <section className="section-product">
       <div className="bg_noise"></div>
       <div className="screen_content">
         <ul className="breadcrumbs_list negative_top with_offset">
@@ -108,7 +107,7 @@ export function ProductPage() {
           <div className="product_card_side sliders_side">
             <div className="product_main_slider_wrapper">
               {
-                images.length>0 && <Slider
+                images.length > 0 && <Slider
                   asNavFor={nav2}
                   ref={(slider) => setNav1(slider)}
                   infinite={true}
@@ -121,7 +120,7 @@ export function ProductPage() {
                 >
                   {
                     images.map((image, index) => <div key={index}>
-                      <div className="product_main_slide lozad" style={{backgroundImage: `url(../${image})`}} />
+                      <div className="product_main_slide lozad" style={{backgroundImage: `url(../${image})`}}/>
                     </div>)
                   }
                 </Slider>
@@ -129,7 +128,7 @@ export function ProductPage() {
             </div>
             <div className="product_thumb_slider_wrapper">
               {
-                images.length>0 && <Slider
+                images.length > 0 && <Slider
                   asNavFor={nav1}
                   ref={(slider) => setNav2(slider)}
                   infinite={true}
@@ -158,7 +157,8 @@ export function ProductPage() {
             </div>
             <div className="bottom_offset smaller top_bordered bottom_bordered product_card_price">
               
-              <QuantityCounter weight={productWeight} increment={productWeight} unit={weightUnit} callback={setTotalWeight} />
+              <QuantityCounter weight={productWeight} increment={productWeight} unit={weightUnit}
+                               callback={setTotalWeight}/>
               
               <div className="product_item_pice">
                 <p>
@@ -170,9 +170,11 @@ export function ProductPage() {
             <form className="bottom_offset smaller" action="">
               <div className="form_elements">
                 {
-                  product.type.includes("stuffing") ? '' : <><div className="form_element half">
+                  product.type.includes("stuffing") ? '' : <>
+                    <div className="form_element half">
                       <div className="select_wrapper">
-                        <select className="select" name="" onChange={(e) => setFieldsData(prev => ({...prev, sliceType: e.target.value}))}>
+                        <select className="select" name=""
+                                onChange={(e) => setFieldsData(prev => ({...prev, sliceType: e.target.value}))}>
                           <option value="Способ нарезки" disabled="disabled" defaultValue>Способ нарезки</option>
                           <option value="Без нарезки">Без нарезки</option>
                           <option value="Слайсами">Слайсами</option>
@@ -181,9 +183,11 @@ export function ProductPage() {
                           <option value="На шашлык">На шашлык</option>
                         </select>
                       </div>
-                    </div><div className="form_element half">
+                    </div>
+                    <div className="form_element half">
                       <div className="select_wrapper">
-                        <select className="select" name="" onChange={(e) => setFieldsData(prev => ({...prev, sliceThickness: e.target.value}))}>
+                        <select className="select" name=""
+                                onChange={(e) => setFieldsData(prev => ({...prev, sliceThickness: e.target.value}))}>
                           <option value="Толщина нарезки" disabled="disabled" defaultValue>Толщина нарезки</option>
                           <option value="Стандартно">Стандартно</option>
                           <option value="1 см">1 см</option>
@@ -191,11 +195,13 @@ export function ProductPage() {
                           <option value="3 см">3 см</option>
                         </select>
                       </div>
-                    </div></> 
+                    </div>
+                  </>
                 }
                 
                 <div className="form_element">
-                  <textarea name="" onChange={(e) => setFieldsData(prev => ({...prev, comment: e.target.value}))} placeholder="Комментарий мяснику" />
+                  <textarea name="" onChange={(e) => setFieldsData(prev => ({...prev, comment: e.target.value}))}
+                            placeholder="Комментарий мяснику"/>
                 </div>
                 <div className="form_element">
                   <button className="main_btn wide" type="button" onClick={addCartItem}>
@@ -212,17 +218,18 @@ export function ProductPage() {
             </div>
             <ul className="feature_list bottom_offset">
               {
-                features.map((line, index) => 
+                features.map((line, index) =>
                   <li key={index} className="feature_li">
                     <p>{line[0]}</p>
-                    <div className="feature__separator" />
+                    <div className="feature__separator"/>
                     <p><strong>{line[1]}</strong></p>
                   </li>
                 )
               }
             </ul>
             <div className="main_btn_wrapper">
-              <Link className="main_btn filled" to="/"><span className="main_btn_inner">Вернуться на главную</span></Link>
+              <Link className="main_btn filled" to="/"><span
+                className="main_btn_inner">Вернуться на главную</span></Link>
             </div>
           </div>
         </div>

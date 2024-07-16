@@ -1,21 +1,25 @@
 import React, {useRef, useEffect, useState} from "react";
+import {ICategoryFilter} from "./CategorySection";
 
-export function ProductFilter({filter}) {
+
+interface IFilterBlock {
+  filter: ICategoryFilter
+}
+
+export const ProductFilter: React.FC<IFilterBlock> = ({filter}) => {
   const [filterVisibility, setFilterVisibility] = useState(false);
-  const wrapperRef = useRef(null);
-
-  function useOutsideAlerter(ref) {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  
+  function useOutsideAlerter(ref: React.RefObject<HTMLDivElement>) {
     useEffect(() => {
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          //clicked outside
+      function handleClickOutside(event: MouseEvent): void {
+        if (ref.current && !ref.current.contains(event.target as Node)) {
           setFilterVisibility(false)
         }
       }
-      // Bind the event listener
+      
       document.addEventListener("mousedown", handleClickOutside);
       return () => {
-        // Unbind the event listener on clean up
         document.removeEventListener("mousedown", handleClickOutside);
       };
     }, [ref]);
@@ -25,13 +29,14 @@ export function ProductFilter({filter}) {
   
   return (
     <div className="product_filter" ref={wrapperRef}>
-      <button className="product_filter__js product_filter_title" type="button" onClick={()=>setFilterVisibility(prev=> !prev)}>{filter.filterName}</button>
-      <div className={`product_filters_dropdown ${filterVisibility? 'is_shown' : ''}`}>
+      <button className="product_filter__js product_filter_title" type="button"
+              onClick={() => setFilterVisibility(prev => !prev)}>{filter.filterName}</button>
+      <div className={`product_filters_dropdown ${filterVisibility ? 'is_shown' : ''}`}>
         <div className="ch_blocks">
           {
             filter.filterVariants.map((variant, index) => <label key={index} className="ch_block">
-              <input type="checkbox" className="filter_checkbox" name="filter_checkbox" value={variant[1]} />
-              <div className="ch_block_icon squered" />
+              <input type="checkbox" className="filter_checkbox" name="filter_checkbox" value={variant[1]}/>
+              <div className="ch_block_icon squered"/>
               <span>{variant[0]}</span>
             </label>)
           }

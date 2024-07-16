@@ -1,18 +1,35 @@
 import React, {useEffect, useState} from "react";
-import {Preloader} from "../Preloader";
+import {Preloader} from "./Preloader";
 
-export function InfoDescription(sectionInfo) {
-  const [ sectionData, setSectionData ] = useState('');
-  const [ spinner, setSpinner ] = useState(true);
+interface IInfoDescrIn {
+  sectionName: string,
+  sectionTitle: string,
+  textLines: string[],
+  image: string
+}
+
+interface IInfoDescr {
+  sectionInfo: IInfoDescrIn
+}
+
+export const InfoDescription: React.FC<IInfoDescr> = ({sectionInfo}) => {
+  const [sectionData, setSectionData] = useState<IInfoDescrIn>({
+    sectionName: '',
+    sectionTitle: '',
+    textLines: [],
+    image: ''
+  });
+  const [spinner, setSpinner] = useState(true);
+  
   useEffect(() => {
-    setSectionData(sectionInfo.sectionInfo)
+    setSectionData(sectionInfo)
     setSpinner(false)
   }, []);
   let spinnerClass = 'section_min_height';
-  let {sectionName, image , sectionTitle, textLines} = sectionData;
-  // console.log(sectionData)
+  let {sectionName, image, sectionTitle, textLines} = sectionData;
+  
   return (
-    spinner ? <Preloader customClass={spinnerClass} /> : <section data-title={sectionName} className="section-delivery">
+    spinner ? <Preloader customClass={spinnerClass}/> : <section data-title={sectionName} className="section-delivery">
       <div className="section_bg">
         <div className="screen_content">
           <div className="circulap_decor to_right">
@@ -29,7 +46,7 @@ export function InfoDescription(sectionInfo) {
             </div>
             <div className="simple_text">
               {
-                textLines.map((line, index) => <p key={index}>{line}</p>)
+                textLines.map((line: string, index: number) => <p key={index}>{line}</p>)
               }
             </div>
           </div>

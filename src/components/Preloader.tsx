@@ -1,12 +1,16 @@
 import React from "react";
 
-export function Preloader({customClass}) {
+interface IPreloader {
+  customClass: string
+}
+
+export const Preloader: React.FC<IPreloader> = ({customClass}) => {
   if (customClass == undefined) {
     customClass = ''
   }
-  return(
-    <div className={ `preloader_wrapper ` + customClass}>
-      <div className="lds-dual-ring"></div>
+  return (
+    <div className={`preloader_wrapper ` + customClass}>
+      <div className="lds-dual-ring"/>
     </div>
   )
 }

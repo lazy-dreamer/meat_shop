@@ -3,7 +3,7 @@ import {InnerPageHead} from "../components/InnerPageHead";
 import {useParams} from "react-router-dom";
 import {ProductService} from "../services/product.service";
 import {Preloader} from "../components/Preloader";
-import {CategorySection} from "../components/categoryPageSections/CategorySection";
+import {CategorySection, ICategoryFilter} from "../components/CategorySection";
 
 export function Category() {
   const {id} = useParams();
@@ -16,20 +16,22 @@ export function Category() {
       ["/catalog", "Каталог продукции"]
     ]
   });
-  const [ spinner, setSpinner ] = useState(true);
-  const [ categoryFilters, setCategoryFilters ] = useState([]);
+  const [spinner, setSpinner] = useState(true);
+  const [categoryFilters, setCategoryFilters] = useState<ICategoryFilter[] | undefined>();
   let spinnerClass = 'section_min_height';
-
+  
   useEffect(() => {
     const fetchData = async () => {
       const categories = await ProductService.getAllCategories()
-      for (var key in categories) {
-        if (categories.hasOwnProperty(key)) {
-          if (categories[key].link===id) {
-            setCategoryFilters(categories[key].filterSets)
-            setHeadSectionData(prev => ({...prev, 
-              "sectionBg": `../${categories[key].categoryHeadImage}`,
-              "sectionTitle":categories[key].name
+      for (let i = 0; i < categories.length; i++) {
+        if (categories.hasOwnProperty(i)) {
+          if (categories[i].link === id) {
+            console.log(categories[i].filterSets)
+            setCategoryFilters(categories[i].filterSets)
+            setHeadSectionData(prev => ({
+              ...prev,
+              "sectionBg": `../${categories[i].categoryHeadImage}`,
+              "sectionTitle": categories[i].name
             }))
             break
           }
@@ -40,15 +42,11 @@ export function Category() {
     }
     fetchData()
   }, []);
-
-  // console.log(headSectionData)
   
-  // console.log(categories)
-  // console.log(id)
   return (
-    spinner ? <Preloader customClass={spinnerClass} /> : <>
-      <InnerPageHead sectionInfo={headSectionData} />
-      <CategorySection categoryType={id} filters={categoryFilters} />
+    spinner ? <Preloader customClass={spinnerClass}/> : <>
+      <InnerPageHead sectionInfo={headSectionData}/>
+      <CategorySection categoryType={id} filters={categoryFilters}/>
     </>
   )
 }

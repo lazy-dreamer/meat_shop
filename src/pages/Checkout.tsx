@@ -1,64 +1,68 @@
 import React, {useContext, useEffect, useState} from "react";
-import {CartContext} from "../providers/CartProvider";
 import {Link} from "react-router-dom";
 import {CartItemDescription} from "../components/CartItemDescription";
 import {CheckoutForm} from "../components/CheckoutForm";
-import {logDOM} from "@testing-library/react";
+import {ICartItem} from "../redux/cartSlice";
+
+export interface IOrderInfo {
+  cartItems: ICartItem[];
+  cartTotalWithDiscount: number
+}
 
 export function Checkout() {
-  const { cartItems, setCartItems } = useContext(CartContext);
+  const cartItems: any = [];
   const [cartTotal, setCartTotal] = useState(0);
   const [cartDiscount, setCartDiscount] = useState(0);
-  const [orderInfo, setOrderInfo] = useState({
+  const [orderInfo, setOrderInfo] = useState<IOrderInfo>({
     cartItems: [],
     cartTotalWithDiscount: 0
   })
-
-  useEffect(() => {
-    let dscntData = JSON.parse(localStorage.getItem('cartDiscount'));
-    setCartDiscount(dscntData.d_val)
-
-    let localTotal = JSON.parse(localStorage.getItem('cartTotalPrice'));
-    setCartTotal(localTotal)
-  }, []);
+  
+  // useEffect(() => {
+  //   let dscntData = JSON.parse(localStorage.getItem('cartDiscount'));
+  //   setCartDiscount(dscntData.d_val)
+  //  
+  //   let localTotal = JSON.parse(localStorage.getItem('cartTotalPrice'));
+  //   setCartTotal(localTotal)
+  // }, []);
   
   useEffect(() => {
-    let localTotal = JSON.parse(localStorage.getItem('cartTotalPrice'));
-    setCartTotal(localTotal)
-    let dscntData = JSON.parse(localStorage.getItem('cartDiscount'));
-    setCartDiscount(dscntData.d_val)
-
-    let itemsInfo = cartItems.map(item=>item.title)
-    setOrderInfo(()=>({
-      cartItems: itemsInfo,
-      cartTotalWithDiscount: localTotal-cartDiscount
-    }))
+    // let localTotal = JSON.parse(localStorage.getItem('cartTotalPrice'));
+    // setCartTotal(localTotal)
+    // let dscntData = JSON.parse(localStorage.getItem('cartDiscount'));
+    // setCartDiscount(dscntData.d_val)
+    //
+    // let itemsInfo = cartItems.map(item => item.title)
+    // setOrderInfo(() => ({
+    //   cartItems: itemsInfo,
+    //   cartTotalWithDiscount: localTotal - cartDiscount
+    // }))
   }, [cartItems]);
   
-  useEffect(() => {
-    setOrderInfo((prev)=>({
-      ...prev,
-      cartTotalWithDiscount: cartTotal-cartDiscount
-    }))
-  }, [cartTotal, cartDiscount]);
+  // useEffect(() => {
+  //   setOrderInfo((prev) => ({
+  //     ...prev,
+  //     cartTotalWithDiscount: cartTotal - cartDiscount
+  //   }))
+  // }, [cartTotal, cartDiscount]);
   
-  function deleteCartItem(id) {
-    let newCartItems = cartItems.filter((item) => item.id !== id);
-    setCartItems([...newCartItems]);
-
-    if (newCartItems.length === 0) {
-      localStorage.setItem('cartDiscount', JSON.stringify({
-        d_code: '',
-        d_var: 0,
-        d_val: 0
-      }));
-    }
+  function deleteCartItem(id: number) {
+    // let newCartItems = cartItems.filter((item) => item.id !== id);
+    // // setCartItems([...newCartItems]);
+    //
+    // if (newCartItems.length === 0) {
+    //   localStorage.setItem('cartDiscount', JSON.stringify({
+    //     d_code: '',
+    //     d_var: 0,
+    //     d_val: 0
+    //   }));
+    // }
   }
   
   return (
     <section className="section-cart">
       <div className="section_bg">
-        <div className="bg_noise" />
+        <div className="bg_noise"/>
       </div>
       <div className="screen_content">
         <div className="main_title_wrapper">
@@ -66,7 +70,7 @@ export function Checkout() {
         </div>
         <div className="checkout_sides">
           <div className="checkout_side content_side">
-            <CheckoutForm info={orderInfo} />
+            <CheckoutForm info={orderInfo}/>
           </div>
           
           <div className="checkout_side aside_side">
@@ -74,13 +78,13 @@ export function Checkout() {
               <div className="aside_side_frame_title">Ваш заказ</div>
               <div className="cart_frame_blocks">
                 {
-                  cartItems.map((item, index) => <div key={index} className="cart_frame_block">
+                  cartItems.map((item: ICartItem, index: number) => <div key={index} className="cart_frame_block">
                     <div className="cf_block">
-                      <div className="cf_block_img lozad" style={{backgroundImage: `url(${item.image})`}} />
+                      <div className="cf_block_img lozad" style={{backgroundImage: `url(${item.image})`}}/>
                       <div className="cf_block_body">
                         <Link to={`/product/${item.id}`} className="cf_block_title">{item.title}</Link>
                         <div className="simple_text">
-                          <CartItemDescription features={item.cartItemInfo} />
+                          <CartItemDescription features={item.cartItemInfo}/>
                         </div>
                       </div>
                     </div>
@@ -89,7 +93,6 @@ export function Checkout() {
                     </button>
                   </div>)
                 }
-                
               </div>
               <div className="floating_cart_bottom">
                 <ul className="price_list bottom_bordered">

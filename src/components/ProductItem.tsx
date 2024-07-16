@@ -1,58 +1,67 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {CartContext} from "../providers/CartProvider";
-import {logDOM} from "@testing-library/react";
+import {addToCart, ICartItem, removeFromCart} from '../redux/cartSlice'
+import {TProductItemArr} from "./MainPageProductItems";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../redux/store";
 
-export function ProductItem({itemInfo}) {
-  // console.log(itemInfo)
-  const { cartItems, setCartItems } = useContext(CartContext);
+
+interface IProductItem {
+  itemInfo: TProductItemArr
+}
+
+export const ProductItem: React.FC<IProductItem> = ({itemInfo}) => {
   const [addedToCart, setAddedToCart] = useState(false)
   
-  function isProductIdInArray(productId, arrayOfObjects) {
+  const dispatch: AppDispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  
+  function isProductIdInArray(productId: number, arrayOfObjects: ICartItem[]) {
     return arrayOfObjects.some(obj => obj.id === productId);
   }
+  
   useEffect(() => {
-    if(isProductIdInArray(id, cartItems)) {
+    if (isProductIdInArray(id, cartItems)) {
       setAddedToCart(true)
     }
-  }, []);
+  }, [cartItems]);
   
-  if (itemInfo == undefined) {
-    return ['undefined', 'undefined', 'undefined', 'undefined', 'undefined']
+  if (!itemInfo) {
+    return null;
   }
-  const [id, productImage, name, price, priceUnit, weight, weightUnit ] = itemInfo
-
+  
+  const [id, productImage, name, price, priceUnit, weight, weightUnit] = itemInfo
+  
   const addCartItem = () => {
-    let newCartItem = {
+    let newCartItem: ICartItem = {
       "id": id,
       "image": productImage,
       "title": name,
       "price": price,
-      "priceUnit":priceUnit,
+      "priceUnit": priceUnit,
       "itemCount": 1,
       "weight": weight,
-      "weightUnit":weightUnit,
+      "weightUnit": weightUnit,
       "cartItemInfo": {
         "sliceType": "",
         "sliceThickness": "",
         "comment": ""
       }
     };
-    setCartItems([...cartItems, newCartItem]);
+    
+    dispatch(addToCart(newCartItem))
     setAddedToCart(true)
   };
   const deleteCartItem = () => {
-    let newCartItems = cartItems.filter((item) => item.id !== id);
-    setCartItems([...newCartItems]);
+    dispatch(removeFromCart(id))
     setAddedToCart(false)
   };
-
   
-
+  
   return (
     <div className="product_item">
       <div className="product_item_img_frame">
-        <div className="product_item_img lozad" style={{backgroundImage: `url(../${productImage})`}} />
+        <div className="product_item_img lozad" style={{backgroundImage: `url(../${productImage})`}}/>
         {
           addedToCart ? <button className="fancybox product_buy" type="button" onClick={deleteCartItem}>
             <span>Удалить из КОРЗИНы</span>
@@ -60,7 +69,6 @@ export function ProductItem({itemInfo}) {
             <img src="../img/circular_plus.svg" alt="ico"/><span>ДОБАВИТЬ В КОРЗИНУ</span>
           </button>
         }
-        
       </div>
       <div className="product_item_body">
         <Link to={`/product/${id}`} className="product_item_title">{name}</Link>
