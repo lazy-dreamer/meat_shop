@@ -17,7 +17,6 @@ export const QuantityCounter: React.FC<IQuantityCounter> = (
   
   let firstWeight: string = parseFloat(weight.toString()).toFixed(2);
   
-  
   const [productWeight, setProductWeight] = useState(firstWeight)
   const addWeight = function () {
     let addedWeight = parseFloat(productWeight) + +increment;

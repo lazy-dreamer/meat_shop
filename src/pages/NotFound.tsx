@@ -6,8 +6,16 @@ import decorImage from "../img/nf_decor_img.webp"
 import nfImage from "../img/404.svg"
 import nfDecorImage from "../img/404_decor_img.webp"
 
-export function NotFound() {
-  const [sectionData, setSectionData] = useState();
+interface INotFound {
+  sectionName: string;
+  sectionTitle: string;
+  sectionSubTitle: string;
+  sectionDecorImg: string;
+  sectionImg: string;
+}
+
+export const NotFound: React.FC = () => {
+  const [sectionData, setSectionData] = useState<INotFound | undefined>();
   const [spinner, setSpinner] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
@@ -18,12 +26,13 @@ export function NotFound() {
     }
     fetchData()
   }, []);
+  
   let spinnerClass = 'section_min_height';
   if (spinner || !sectionData) {
     return <Preloader customClass={spinnerClass}/>
   }
   let {sectionName, sectionTitle, sectionSubTitle} = sectionData;
-  // console.log(sectionData)
+  
   return (
     <section data-title={sectionName} className="section-cart remove_pt remove_pb">
       <div className="section_bg">

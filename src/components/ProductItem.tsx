@@ -57,7 +57,6 @@ export const ProductItem: React.FC<IProductItem> = ({itemInfo}) => {
     setAddedToCart(false)
   };
   
-  
   return (
     <div className="product_item">
       <div className="product_item_img_frame">

@@ -1,7 +1,6 @@
 import React, {useRef, useEffect, useState} from "react";
 import {ICategoryFilter} from "./CategorySection";
 
-
 interface IFilterBlock {
   filter: ICategoryFilter
 }

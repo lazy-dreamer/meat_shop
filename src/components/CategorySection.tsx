@@ -12,8 +12,8 @@ export interface ICategoryFilter {
 }
 
 export interface ICategorySection {
-  categoryType: string;
-  filters: ICategoryFilter[]
+  categoryType: string | undefined;
+  filters: ICategoryFilter[] | undefined;
 }
 
 export const CategorySection: React.FC<ICategorySection> = ({categoryType, filters}) => {
@@ -198,7 +198,7 @@ export const CategorySection: React.FC<ICategorySection> = ({categoryType, filte
           <div className="filtering_sides">
             <form className="filtering_side" onSubmit={handleSubmit}>
               {
-                filters.map((item, index) => <ProductFilter key={index} filter={item}/>)
+                filters?.map((item, index) => <ProductFilter key={index} filter={item}/>)
               }
             </form>
             <div className="clear_filters_side">

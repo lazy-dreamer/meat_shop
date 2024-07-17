@@ -4,9 +4,15 @@ import {ContentService} from "../services/content.service";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 
+interface IThanks {
+  sectionName: string;
+  sectionTitle: string;
+  image: string;
+  textLines: string[]
+}
 
-export function Thanks() {
-  const [sectionData, setSectionData] = useState('');
+export const Thanks: React.FC = () => {
+  const [sectionData, setSectionData] = useState<IThanks | undefined>();
   const [spinner, setSpinner] = useState(true);
   
   const navigate = useNavigate();
@@ -15,6 +21,7 @@ export function Thanks() {
     const fetchData = async () => {
       const sectionsData = await ContentService.getThanksSections()
       setSectionData(sectionsData)
+      console.log(sectionsData)
       setSpinner(false);
     }
     fetchData()
@@ -49,7 +56,7 @@ export function Thanks() {
               <div className="main_title">{sectionTitle}</div>
               <div className="simple_text">
                 {
-                  textLines.map((line, index) => <p key={index}>{line}</p>)
+                  textLines.map((line: string, index: number) => <p key={index}>{line}</p>)
                 }
               </div>
             </div>
