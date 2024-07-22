@@ -1,8 +1,9 @@
-import React from "react";
+import React, {Dispatch, SetStateAction} from "react";
 
 type TModalProps = {
   children: React.ReactNode;
-  show: boolean
+  show: boolean;
+  setShow?: Dispatch<SetStateAction<boolean>>;
 }
 
 export function Modal({children, show}: TModalProps) {

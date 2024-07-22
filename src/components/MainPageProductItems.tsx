@@ -9,6 +9,7 @@ interface IMainPageProductItems {
   sectionInfo: INewItems
 }
 
+// [id, productImage, name, price, priceUnit, weight, weightUnit, type]
 export type TProductItemArr = [number, string, string, number, string, number, string, string[]]
 
 export const MainPageProductItems: React.FC<IMainPageProductItems> = ({sectionInfo}) => {

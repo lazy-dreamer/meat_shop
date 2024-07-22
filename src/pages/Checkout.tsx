@@ -1,62 +1,42 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {CartItemDescription} from "../components/CartItemDescription";
 import {CheckoutForm} from "../components/CheckoutForm";
-import {ICartItem} from "../redux/cartSlice";
+import {clearDiscount, ICartItem, removeFromCart} from "../redux/cartSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../redux/store";
 
 export interface IOrderInfo {
-  cartItems: ICartItem[];
+  cartItems: string[];
   cartTotalWithDiscount: number
 }
 
 export function Checkout() {
-  const cartItems: any = [];
-  const [cartTotal, setCartTotal] = useState(0);
-  const [cartDiscount, setCartDiscount] = useState(0);
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const cartDiscount = useSelector((state: RootState) => state.cart.cartDiscount);
+  const cartTotal = useSelector((state: RootState) => state.cart.totalCartPrice);
+  const dispatch: AppDispatch = useDispatch();
+  
   const [orderInfo, setOrderInfo] = useState<IOrderInfo>({
     cartItems: [],
     cartTotalWithDiscount: 0
   })
   
-  // useEffect(() => {
-  //   let dscntData = JSON.parse(localStorage.getItem('cartDiscount'));
-  //   setCartDiscount(dscntData.d_val)
-  //  
-  //   let localTotal = JSON.parse(localStorage.getItem('cartTotalPrice'));
-  //   setCartTotal(localTotal)
-  // }, []);
-  
   useEffect(() => {
-    // let localTotal = JSON.parse(localStorage.getItem('cartTotalPrice'));
-    // setCartTotal(localTotal)
-    // let dscntData = JSON.parse(localStorage.getItem('cartDiscount'));
-    // setCartDiscount(dscntData.d_val)
-    //
-    // let itemsInfo = cartItems.map(item => item.title)
-    // setOrderInfo(() => ({
-    //   cartItems: itemsInfo,
-    //   cartTotalWithDiscount: localTotal - cartDiscount
-    // }))
+    let itemsInfo: string[] = cartItems.map((item: ICartItem) => item.title)
+    
+    setOrderInfo(() => ({
+      cartItems: itemsInfo,
+      cartTotalWithDiscount: cartTotal - cartDiscount.d_val
+    }))
   }, [cartItems]);
   
-  // useEffect(() => {
-  //   setOrderInfo((prev) => ({
-  //     ...prev,
-  //     cartTotalWithDiscount: cartTotal - cartDiscount
-  //   }))
-  // }, [cartTotal, cartDiscount]);
-  
   function deleteCartItem(id: number) {
-    // let newCartItems = cartItems.filter((item) => item.id !== id);
-    // // setCartItems([...newCartItems]);
-    //
-    // if (newCartItems.length === 0) {
-    //   localStorage.setItem('cartDiscount', JSON.stringify({
-    //     d_code: '',
-    //     d_var: 0,
-    //     d_val: 0
-    //   }));
-    // }
+    dispatch(removeFromCart(id))
+    
+    if (cartItems.length === 0) {
+      dispatch(clearDiscount())
+    }
   }
   
   return (
@@ -102,11 +82,11 @@ export function Checkout() {
                   </li>
                   <li className="price_li_sides">
                     <p>Скидка:</p>
-                    <p><strong>{cartDiscount} ₪</strong></p>
+                    <p><strong>{cartDiscount.d_val} ₪</strong></p>
                   </li>
                 </ul>
                 <div className="floating_cart_total_sides">
-                  <p>Итог по заказу:</p><strong>{cartTotal - cartDiscount} ₪</strong></div>
+                  <p>Итог по заказу:</p><strong>{cartTotal - cartDiscount.d_val} ₪</strong></div>
               </div>
             </div>
           </div>

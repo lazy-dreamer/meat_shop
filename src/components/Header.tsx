@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {Preloader} from "./Preloader";
 import {ContentService} from "../services/content.service";
@@ -8,6 +8,7 @@ import controlImg2 from "../img/header_control2.svg";
 import {Search} from "./Search";
 import {AppDispatch, RootState} from "../redux/store";
 import {useDispatch, useSelector} from "react-redux";
+import {clearCart, clearDiscount, setCartItems, setCartTotal, setDiscount,} from "../redux/cartSlice";
 
 interface IHeader {
   logoLink: string;
@@ -16,16 +17,11 @@ interface IHeader {
 }
 
 export function Header() {
-  const dispatch: AppDispatch = useDispatch();
-  const {cartItems} = useSelector((state: RootState) => state.cart);
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   
-  const [sectionData, setSectionData] = useState<IHeader>({
-    logoLink: '',
-    navList: [],
-    headerPhone: []
-  });
-  
+  const [sectionData, setSectionData] = useState<IHeader | undefined>();
   const [spinner, setSpinner] = useState(true);
+  
   useEffect(() => {
     const fetchData = async () => {
       const data = await ContentService.getHeader()
@@ -34,61 +30,15 @@ export function Header() {
     }
     fetchData()
   }, []);
+  
   let spinnerClass = 'header_preloader';
-  let {logoLink, navList, headerPhone} = sectionData;
-  
-  
-  function clearCart() {
-    // localStorage.setItem('cartDiscount', JSON.stringify({
-    //   d_code: '',
-    //   d_var: 0,
-    //   d_val: 0
-    // }));
-    // setCartItems([])
+  if (spinner || !sectionData) {
+    return <Preloader customClass={spinnerClass}/>
   }
-  
-  function getCartTotalPrice() {
-    // let cartTotalPrice = 0;
-    // for (let i in cartItems) {
-    //   cartTotalPrice += (cartItems[i].price * cartItems[i].itemCount)
-    // }
-    // localStorage.setItem('cartTotalPrice', JSON.stringify(cartTotalPrice));
-    //
-    // let discountData = JSON.parse(localStorage.getItem('cartDiscount'));
-    // if (discountData == null) {
-    //   discountData = {
-    //     d_code: '',
-    //     d_var: 0,
-    //     d_val: 0
-    //   }
-    //   localStorage.setItem('cartDiscount', JSON.stringify(discountData));
-    // } else {
-    //   let tmpDiscountVal = discountData.d_val;
-    //   if (discountData.d_code.toString().indexOf('%') > -1) {
-    //     tmpDiscountVal = (cartTotalPrice * discountData.d_var) / 100
-    //   }
-    //   let d_obj = {
-    //     d_code: discountData.d_code,
-    //     d_var: discountData.d_var,
-    //     d_val: tmpDiscountVal
-    //   }
-    //   localStorage.setItem('cartDiscount', JSON.stringify(d_obj));
-    // }
-  }
-  
-  // useEffect(() => {
-  //   const cartItems = JSON.parse(localStorage.getItem('cartItems'));
-  //   if (cartItems) {
-  //     setCartItems(cartItems);
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  //   getCartTotalPrice()
-  // }, [cartItems]);
+  let {navList, headerPhone} = sectionData;
   
   return (
-    spinner ? <header className="header"><Preloader customClass={spinnerClass}/></header> : <header className="header">
+    <header className="header">
       <div className="header_cols">
         <div className="main_logo">
           <Link to="/">
@@ -101,7 +51,6 @@ export function Header() {
               navList.map((link, index: number) =>
                 <li key={index}><Link to={link[0]}>{link[1]}</Link></li>)
             }
-            <li><p onClick={(e) => clearCart()}>Clear cart!!!</p></li>
           </ul>
         </div>
         <div className="header_right">

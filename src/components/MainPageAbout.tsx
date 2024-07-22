@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Preloader} from "./Preloader";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {IMPAbout} from "../pages/MainPage";
 
 interface IMainPageAbout {
@@ -8,6 +8,8 @@ interface IMainPageAbout {
 }
 
 export const MainPageAbout: React.FC<IMainPageAbout> = ({sectionInfo}) => {
+  const location = useLocation();
+  
   const [sectionData, setSectionData] = useState<IMPAbout | undefined>();
   const [spinner, setSpinner] = useState(true);
   useEffect(() => {
@@ -19,6 +21,7 @@ export const MainPageAbout: React.FC<IMainPageAbout> = ({sectionInfo}) => {
     return <Preloader customClass={spinnerClass}/>;
   }
   let {sectionName, sectionBg, sectionTitle, sectionText} = sectionData;
+  
   
   return (
     <section className="section-about" data-title={sectionName}>
@@ -37,10 +40,13 @@ export const MainPageAbout: React.FC<IMainPageAbout> = ({sectionInfo}) => {
                     <p key={index}>{textLine}</p>
                   )}
                 </div>
-                <Link to="/about" className="more_btn">
-                  <span className="more_btn_text with_line">УЗНАТЬ БОЛЬШЕ</span><span
-                  className="more_btn_ico"><img src="img/chevron_right2.svg" alt="ico"/></span>
-                </Link>
+                {
+                  location.pathname.replace('/', '') !== 'about' ? <Link to="/about" className="more_btn">
+                    <span className="more_btn_text with_line">УЗНАТЬ БОЛЬШЕ</span><span
+                    className="more_btn_ico"><img src="img/chevron_right2.svg" alt="ico"/></span>
+                  </Link> : ''
+                }
+              
               </div>
             </div>
           </div>

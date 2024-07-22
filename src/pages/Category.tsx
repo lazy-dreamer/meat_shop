@@ -18,7 +18,6 @@ export function Category() {
     ]
   });
   
-  console.log(headSectionData)
   const [spinner, setSpinner] = useState(true);
   const [categoryFilters, setCategoryFilters] = useState<ICategoryFilter[] | undefined>();
   let spinnerClass = 'section_min_height';

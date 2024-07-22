@@ -1,8 +1,10 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Preloader} from "../components/Preloader";
 import {ContentService} from "../services/content.service";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {clearCart, clearDiscount} from "../redux/cartSlice";
 
 interface IThanks {
   sectionName: string;
@@ -14,6 +16,7 @@ interface IThanks {
 export const Thanks: React.FC = () => {
   const [sectionData, setSectionData] = useState<IThanks | undefined>();
   const [spinner, setSpinner] = useState(true);
+  const dispatch = useDispatch();
   
   const navigate = useNavigate();
   
@@ -21,21 +24,19 @@ export const Thanks: React.FC = () => {
     const fetchData = async () => {
       const sectionsData = await ContentService.getThanksSections()
       setSectionData(sectionsData)
-      console.log(sectionsData)
       setSpinner(false);
     }
     fetchData()
     
-    // localStorage.setItem('cartDiscount', JSON.stringify({
-    //   d_code: '',
-    //   d_var: 0,
-    //   d_val: 0
-    // }));
-    // setCartItems([])
     
-    setTimeout(function () {
+    dispatch(clearDiscount())
+    dispatch(clearCart())
+    
+    const returnTimeout = setTimeout(function () {
       navigate('/')
     }, 5000)
+    
+    return () => clearTimeout(returnTimeout)
     
   }, []);
   let spinnerClass = 'section_min_height';
@@ -43,7 +44,7 @@ export const Thanks: React.FC = () => {
     return <Preloader customClass={spinnerClass}/>
   }
   let {sectionName, sectionTitle, textLines, image} = sectionData;
-  // console.log(sectionData)
+  
   return (
     <section data-title={sectionName} className="section-cart remove_pt remove_pb">
       <div className="section_bg">

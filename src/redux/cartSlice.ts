@@ -57,12 +57,37 @@ export const cartSlice = createSlice({
     removeFromCart: (state, action) => {
       state.cartItems = state.cartItems.filter((item) => item.id !== action.payload)
     },
-    addDiscount: (state, action) => {
+    clearCart: (state) => {
+      state.cartItems = []
+    },
+    setCartItems: (state, action) => {
+      state.cartItems = action.payload
+    },
+    setDiscount: (state, action) => {
       state.cartDiscount = action.payload
+    },
+    clearDiscount: (state) => {
+      state.cartDiscount = {
+        d_code: '',
+        d_var: 0,
+        d_val: 0
+      }
+    },
+    setCartTotal: (state, action) => {
+      state.totalCartPrice = action.payload
     }
   }
 })
 
-export const {addToCart, changeCartItem, removeFromCart} = cartSlice.actions
+export const {
+  addToCart,
+  changeCartItem,
+  removeFromCart,
+  clearCart,
+  setCartItems,
+  setCartTotal,
+  setDiscount,
+  clearDiscount
+} = cartSlice.actions
 
 export default cartSlice.reducer

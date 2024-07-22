@@ -2,10 +2,11 @@ import React, {useRef, useEffect, useState} from "react";
 import {ICategoryFilter} from "./CategorySection";
 
 interface IFilterBlock {
-  filter: ICategoryFilter
+  filter: ICategoryFilter;
+  inputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const ProductFilter: React.FC<IFilterBlock> = ({filter}) => {
+export const ProductFilter: React.FC<IFilterBlock> = ({filter, inputChange}) => {
   const [filterVisibility, setFilterVisibility] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   
@@ -34,7 +35,8 @@ export const ProductFilter: React.FC<IFilterBlock> = ({filter}) => {
         <div className="ch_blocks">
           {
             filter.filterVariants.map((variant, index) => <label key={index} className="ch_block">
-              <input type="checkbox" className="filter_checkbox" name="filter_checkbox" value={variant[1]}/>
+              <input type="checkbox" className="filter_checkbox" name="filter_checkbox" value={variant[1]}
+                     onChange={inputChange}/>
               <div className="ch_block_icon squered"/>
               <span>{variant[0]}</span>
             </label>)

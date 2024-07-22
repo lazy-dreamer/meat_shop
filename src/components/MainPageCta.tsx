@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Preloader} from "./Preloader";
 import {CtaSection} from "../pages/MainPage";
+import {Link} from "react-router-dom";
 
 interface IMainPageCta {
   sectionInfo: CtaSection;
@@ -47,11 +48,11 @@ export const MainPageCta: React.FC<IMainPageCta> = ({sectionInfo}) => {
                            name={formField.fieldName}/></div>)
                 }
                 <div className="form_element half self_aligned">
-                  <div className="mfv_checker"><label className="ch_block"><input className="mfv_checker_input"
-                                                                                  type="checkbox"
-                                                                                  name="согласие на обработку данных"/>
-                    <div className="ch_block_icon"></div>
-                    <span className="mfv_checker_text">Я согласен на обработку персональных данных и c  <a href="#">политикой конфиденциальности</a></span></label>
+                  <div className="mfv_checker"><label className="ch_block">
+                    <input className="mfv_checker_input" type="checkbox" name="согласие на обработку данных"/>
+                    <div className="ch_block_icon"/>
+                    <span className="mfv_checker_text">Я согласен на обработку персональных данных и c  <Link
+                      to='/policy'>политикой конфиденциальности</Link></span></label>
                   </div>
                 </div>
                 <div className="form_element half">

@@ -2,56 +2,37 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {CartItem} from "../components/CartItem";
 import {ProductService} from "../services/product.service";
-import {ICartDiscount, ICartItem} from "../redux/cartSlice";
+import {clearDiscount, ICartItem, removeFromCart, setDiscount} from "../redux/cartSlice";
+import {AppDispatch, RootState} from "../redux/store";
+import {useDispatch, useSelector} from "react-redux";
 
-let discountFile: ICartDiscount = {
-  d_code: '',
-  d_var: 0,
-  d_val: 0
-}
 
 export function Cart() {
-  const cartItems: any = [];
-  const [cartTotal, setCartTotal] = useState(0);
+  const dispatch: AppDispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  let discountData = useSelector((state: RootState) => state.cart.cartDiscount)
+  let cartTotal = useSelector((state: RootState) => state.cart.totalCartPrice)
   
-  const [cartDiscountData, setCartDiscountData] = useState(discountFile);
-  const [cartDiscount, setCartDiscount] = useState(0);
-  const [discountVariants, setDiscountVariants] = useState([]);// варіанти промо кодів
+  const [discountVariants, setDiscountVariants] = useState<[string, number][] | undefined>();
   const [promoCodeField, setPromoCodeField] = useState('');
   const [promoCodeActivate, setPromoCodeActivate] = useState(false);
   const [promoCodeError, setPromoCodeError] = useState(false);
   
-  // useEffect(() => {
-  //   const fetchPromos = async () => {
-  //     const data = await ProductService.getDiscounts()
-  //     setDiscountVariants(data)
-  //   }
-  //   fetchPromos()
-  //  
-  //   let discountData = JSON.parse(localStorage.getItem('cartDiscount'));
-  //   if (discountData == null) {
-  //     discountData = discountFile
-  //   }
-  //   if (discountData.d_var !== 0) {
-  //     setPromoCodeActivate(true)
-  //   }
-  //   // console.log(discountData)
-  //   setCartDiscountData(discountData)
-  // }, []);
+  useEffect(() => {
+    const fetchPromos = async () => {
+      const data: any = await ProductService.getDiscounts()
+      setDiscountVariants(data)
+    }
+    fetchPromos()
+    
+    if (discountData.d_var !== 0) {
+      setPromoCodeActivate(true)
+    }
+  }, [discountData.d_var]);
   
-  // useEffect(() => {
-  //   let localTotal = JSON.parse(localStorage.getItem('cartTotalPrice'));
-  //   let discountData = JSON.parse(localStorage.getItem('cartDiscount'));
-  //   setCartTotal(localTotal)
-  //   setCartDiscount(discountData.d_val)
-  // }, [cartItems, cartDiscountData]);
   
   function deleteCartItem(id: number) {
-    // let newCartItems = cartItems.filter((item) => item.id !== id);
-    // //setCartItems([...newCartItems]);
-    // if (newCartItems.length === 0) {
-    //   removeDiscount()
-    // }
+    dispatch(removeFromCart(id))
   }
   
   function promoError() {
@@ -63,39 +44,36 @@ export function Cart() {
   
   function promoSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    // if (promoCodeField.length > 0 && cartItems.length > 0) {
-    //   let promCheckRes = discountVariants.filter((item) => item[0] === promoCodeField)
-    //   if (promCheckRes === undefined || promCheckRes.length === 0) {
-    //     setCartDiscountData(discountFile)
-    //     localStorage.setItem('cartDiscount', JSON.stringify(discountFile));
-    //     setPromoCodeActivate(false)
-    //     promoError()
-    //   } else {
-    //     let tempDiscountVal = promCheckRes[0][1];
-    //     if (promCheckRes[0][0].toString().indexOf('%') > -1) {
-    //       tempDiscountVal = (cartTotal * promCheckRes[0][1]) / 100
-    //     }
-    //     let d_obj = {
-    //       d_code: promCheckRes[0][0],
-    //       d_var: promCheckRes[0][1],
-    //       d_val: tempDiscountVal
-    //     }
-    //     setCartDiscountData(d_obj)
-    //     setPromoCodeActivate(true)
-    //     localStorage.setItem('cartDiscount', JSON.stringify(d_obj));
-    //   }
-    //   setPromoCodeField('')
-    // } else {
-    //   promoError()
-    // }
+    if (promoCodeField.length > 0 && cartItems.length > 0 && discountVariants) {
+      let promCheckRes = discountVariants.filter((item) => item[0] === promoCodeField)
+      
+      if (promCheckRes === undefined || promCheckRes.length === 0) {
+        dispatch(clearDiscount())
+        setPromoCodeActivate(false)
+        promoError()
+      } else {
+        let tempDiscountVal = promCheckRes[0][1];
+        if (promCheckRes[0][0].includes('%')) {
+          tempDiscountVal = (cartTotal * promCheckRes[0][1]) / 100
+        }
+        let d_obj = {
+          d_code: promCheckRes[0][0],
+          d_var: promCheckRes[0][1],
+          d_val: tempDiscountVal
+        }
+        dispatch(setDiscount(d_obj))
+        setPromoCodeActivate(true)
+      }
+      setPromoCodeField('')
+    } else {
+      promoError()
+    }
   }
   
   function removeDiscount() {
-    setCartDiscountData(discountFile)
-    localStorage.setItem('cartDiscount', JSON.stringify(discountFile));
+    dispatch(clearDiscount())
     setPromoCodeActivate(false)
   }
-  
   
   return (
     <section className="section-cart">
@@ -126,9 +104,11 @@ export function Cart() {
             </div>
             <div className="cart_blocks bottom_offset">
               {
-                cartItems.length > 0 ? (cartItems.map((item: ICartItem, index: number) => <CartItem key={index}
-                                                                                                    deleteItem={deleteCartItem}
-                                                                                                    item={item}/>)) :
+                cartItems.length > 0 ?
+                  (cartItems.map((item: ICartItem) => <CartItem
+                    key={item.id}
+                    deleteItem={deleteCartItem}
+                    item={item}/>)) :
                   <p className="empty_cart_message">Корзина пуста!</p>
               }
             </div>
@@ -140,7 +120,6 @@ export function Cart() {
                   <Link className="main_btn" to="/checkout"><span className="main_btn_inner">Перейти к оформлению</span></Link>)
               }
             </div>
-          
           </div>
           <div className="cart_side aside_side">
             <div className="aside_side_frame">
@@ -156,12 +135,14 @@ export function Cart() {
                   <p>
                     {promoCodeActivate &&
                     <button type="button" className="remove_discount" onClick={() => removeDiscount()}>(удалить
-                      код {cartDiscountData.d_code})</button>}
-                    <strong>{cartDiscount} ₪</strong></p>
+                      код {discountData.d_code})</button>}
+                    <strong>{discountData.d_val} ₪</strong></p>
                 </li>
               </ul>
               <div className="floating_cart_total_sides">
-                <p>Итог по заказу:</p><strong>{cartTotal - cartDiscount} ₪</strong></div>
+                <p>Итог по заказу:</p>
+                <strong>{discountData && (cartTotal - discountData.d_val)} ₪</strong>
+              </div>
             </div>
             {!promoCodeActivate && <div className="aside_side_frame">
               <div className="aside_side_frame_title">Промокод на скидку</div>

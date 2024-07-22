@@ -1,8 +1,8 @@
-import React, {useContext} from "react";
+import React, {memo, useCallback} from "react";
 import {QuantityCounter} from "../components/QuantityCounter";
 import {Link} from "react-router-dom";
 import {CartItemDescription} from "./CartItemDescription";
-import {ICartItem} from '../redux/cartSlice'
+import {changeCartItem, ICartItem} from '../redux/cartSlice'
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../redux/store";
 
@@ -11,26 +11,20 @@ interface ICartItemComponent {
   deleteItem: (id: number) => void
 }
 
-
-export const CartItem: React.FC<ICartItemComponent> = ({item, deleteItem}) => {
+export const CartItem: React.FC<ICartItemComponent> = memo(({item, deleteItem}) => {
   const dispatch: AppDispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const {cartItemInfo, id, image, itemCount, price, priceUnit, title, weight, weightUnit} = item;
   
-  function updateItemCountById(id: number, newCount: number, arr: ICartItem[]) {
-    const updatedCartItems: ICartItem[] = arr.map((item: ICartItem) => {
-      if (item.id === id) {
-        return {...item, itemCount: newCount};
-      }
-      return item;
-    });
-    // setCartItems(updatedCartItems)
-  }
-  
-  function totalPriceChanger(quantWeight: number) {
+  const totalPriceChanger = useCallback((quantWeight: number) => {
     let newCount = Math.round(quantWeight / weight);
-    updateItemCountById(id, newCount, cartItems)
-  }
+    let thisCartItem = cartItems.find((cartItem: ICartItem) => cartItem.id === id);
+    
+    if (thisCartItem && thisCartItem.itemCount !== newCount) {
+      let newCartItem = {...thisCartItem, itemCount: newCount};
+      dispatch(changeCartItem(newCartItem));
+    }
+  }, [cartItems, dispatch, id, weight]);
   
   return (
     <div className="cart_block">
@@ -58,7 +52,7 @@ export const CartItem: React.FC<ICartItemComponent> = ({item, deleteItem}) => {
           <QuantityCounter
             key={id} weight={weight * itemCount}
             increment={weight} unit={weightUnit}
-            callback={totalPriceChanger}
+            callback={(e) => totalPriceChanger(e)}
           />
         </div>
         <div className="cart_item_cell price_cell cart_total_price">
@@ -69,4 +63,4 @@ export const CartItem: React.FC<ICartItemComponent> = ({item, deleteItem}) => {
       </div>
     </div>
   )
-}
+})

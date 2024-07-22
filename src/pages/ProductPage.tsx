@@ -37,11 +37,13 @@ export function ProductPage() {
     sliceThickness: '',
     comment: ''
   });
+  const [cartProductCount, setCartProductCount] = useState(1)
   
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const dispatch: AppDispatch = useDispatch();
-  console.log(cartItems)
   let priceIncrease = parseInt((parseFloat(totalWeight.toString()) / productWeight).toFixed());
+  
+  let isInCart = isProductIdInCart(Number(id), cartItems)
   
   useEffect(() => {
     if (!id) return;
@@ -49,17 +51,32 @@ export function ProductPage() {
       const data: any = await ProductService.getById(Number(id))
       setProduct(data)
       setProductWeight(data.weight)
+      setCartProductCount(data.weight)
       setProductPrice(data.price)
       setSpinner(false)
       setTotalPrice(data.price)
     }
     fetchData()
-    console.log('id')
+    // console.log('id')
   }, [id]);
   useEffect(() => {
     calculateTotalPrice()
-    console.log('totalWeight')
+    // console.log('totalWeight')
   }, [totalWeight]);
+  
+  useEffect(() => {
+    if (product !== undefined) {
+      if (isInCart) {
+        let itemInCart = cartItems.find((el: any) => el.id === Number(id))
+        setCartProductCount(itemInCart.itemCount * productWeight);
+        
+      } else {
+        setCartProductCount(productWeight);
+      }
+    }
+    // console.log('product')
+  }, [id, product, cartItems]);
+  
   
   let spinnerClass = 'section_min_height';
   if (spinner || !product) {
@@ -77,13 +94,6 @@ export function ProductPage() {
   
   function isProductIdInCart(productId: number, arrayOfObjects: any[]) {
     return arrayOfObjects.some(obj => obj.id === productId);
-  }
-  
-  let cartProductCount = 1;
-  let isInCart = isProductIdInCart(Number(id), cartItems)
-  if (isInCart) {
-    let itemInCart = cartItems.find((el: any) => el.id === Number(id))
-    console.log(itemInCart.itemCount)
   }
   
   const addCartItem = () => {
@@ -110,6 +120,9 @@ export function ProductPage() {
     }
   };
   
+  // console.log(totalWeight)
+  
+  
   return (
     <section className="section-product">
       <div className="bg_noise"/>
@@ -125,7 +138,6 @@ export function ProductPage() {
           </div>
           <div className="product_card_side content_side">
             <div className="main_title_wrapper small_offset">
-              {/*<p>В наличии</p>*/}
               <div className="main_title">{name}</div>
             </div>
             {/*<div className='bottom_offset smaller'>*/}
@@ -133,11 +145,11 @@ export function ProductPage() {
             {/*</div>*/}
             <div className="bottom_offset smaller top_bordered bottom_bordered product_card_price">
               <QuantityCounter
-                weight={productWeight * cartProductCount}
+                weight={cartProductCount}
                 increment={productWeight}
                 unit={weightUnit}
-                callback={setTotalWeight}/>
-              
+                callback={(e) => setTotalWeight(e)}
+              />
               <div className="product_item_pice">
                 <p>
                   <ins className="strong">{totalPrice} {priceUnit}</ins>

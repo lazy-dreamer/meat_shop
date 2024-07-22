@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Preloader} from "./Preloader";
-import {ProductService} from "../services/product.service";
+import {IProductArr, ProductService} from "../services/product.service";
 import {ProductItem} from "./ProductItem";
 import {ProductFilter} from "./ProductFilter";
-import {AppDispatch, RootState} from "../redux/store";
-import {useDispatch, useSelector} from "react-redux";
+import {TProductItemArr} from "./MainPageProductItems";
 
 export interface ICategoryFilter {
   filterName: string;
@@ -19,25 +18,32 @@ export interface ICategorySection {
 export const CategorySection: React.FC<ICategorySection> = ({categoryType, filters}) => {
   let spinnerClass = '';
   
-  const [productItemsArr, setProductItemsArr] = useState([]);
-  const [filteredItemsArr, setFilteredItemsArr] = useState([]);
+  const [products, setProducts] = useState<IProductArr[] | undefined>();
+  const [productItemsArr, setProductItemsArr] = useState<TProductItemArr[] | undefined>();
+  const [filteredItemsArr, setFilteredItemsArr] = useState<TProductItemArr[] | undefined>();
   const [selectedOption, setSelectedOption] = useState("disabledOption");
   const [spinner, setSpinner] = useState(true);
-  
-  const dispatch: AppDispatch = useDispatch();
-  const {cartItems} = useSelector((state: RootState) => state.cart);
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
+  // console.log(products)
   
   useEffect(() => {
-    let fetchedItems: any = []
-    for (let key in cartItems) {
-      if (cartItems[key].type.includes(categoryType)) {
-        fetchedItems.push(ProductService.productItemToArr(cartItems[key]))
+    const fetchProducts = async () => {
+      let fetchedItems: any = []
+      let data: IProductArr[] = await ProductService.getAll()
+      if (categoryType) {
+        for (let key in data) {
+          if (data[key].type.includes(categoryType)) {
+            fetchedItems.push(ProductService.productItemToArr(data[key]))
+          }
+        }
       }
+      setProducts(data)
+      setProductItemsArr(fetchedItems)
+      setSpinner(false);
+      sortProductItems(fetchedItems, '')
     }
-    // console.log(fetchedItems)
-    setProductItemsArr(fetchedItems)
-    setSpinner(false);
-    filterProductsAlphabetically(fetchedItems)
+    fetchProducts()
+    
   }, []);
   
   function sortingSelect(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -47,139 +53,112 @@ export const CategorySection: React.FC<ICategorySection> = ({categoryType, filte
   }
   
   function switchFilter(sortingVal: string) {
-    // switch (sortingVal) {
-    //   case 'name_end':
-    //     filterProductsReverseAlphabetically(filteredItemsArr);
-    //     break;
-    //   case 'price_up':
-    //     sortByElementAscending(filteredItemsArr, 5)
-    //     setSpinner(false);
-    //     break;
-    //   case 'price_down':
-    //     sortByElementDescending(filteredItemsArr, 5)
-    //     setSpinner(false);
-    //     break;
-    //   case 'weight_light':
-    //     sortByElementAscending(filteredItemsArr, 6)
-    //     break;
-    //   case 'weight_heavy':
-    //     sortByElementDescending(filteredItemsArr, 6)
-    //     break;
-    //   case 'disabledOption':
-    //     filterProductsAlphabetically(filteredItemsArr)
-    //     break;
-    //   default:
-    //     //name_start
-    //     filterProductsAlphabetically(filteredItemsArr)
-    //     break;
-    // }
+    if (filteredItemsArr?.length) {
+      sortProductItems(filteredItemsArr, sortingVal)
+    }
   }
   
-  function filterProductsAlphabetically(products: any): void {
+  function sortProductItems(products: TProductItemArr[], action: string) {
     const sortedProducts = [...products];
+    setFilteredItemsArr([])
+    setSpinner(true);
     
-    // setFilteredItemsArr([])
-    // setSpinner(true);
-    //
-    // sortedProducts.sort((a, b) => {
-    //   const nameA = a[2].toLowerCase();
-    //   const nameB = b[2].toLowerCase();
-    //   if (nameA < nameB) return -1;
-    //   if (nameA > nameB) return 1;
-    //   return 0;
-    // });
+    switch (action) {
+      case 'name_end':
+        sortedProducts.sort((a, b) => {
+          const nameA = a[2].toLowerCase();
+          const nameB = b[2].toLowerCase();
+          if (nameA < nameB) return 1;
+          if (nameA > nameB) return -1;
+          return 0;
+        });
+        break;
+      case 'price_up':
+        sortedProducts.sort((a, b) => parseFloat(a[3].toString()) - parseFloat(b[3].toString()));
+        break;
+      case 'price_down':
+        sortedProducts.sort((a, b) => parseFloat(b[3].toString()) - parseFloat(a[3].toString()));
+        break;
+      case 'weight_light':
+        sortedProducts.sort((a, b) => parseFloat(a[5].toString()) - parseFloat(b[5].toString()));
+        break;
+      case 'weight_heavy':
+        sortedProducts.sort((a, b) => parseFloat(b[5].toString()) - parseFloat(a[5].toString()));
+        break;
+      case 'disabledOption':
+        sortedProducts.sort((a, b) => {
+          const nameA: string = a[2].toLowerCase();
+          const nameB: string = b[2].toLowerCase();
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+          return 0;
+        });
+        break;
+      default:
+        //name_start
+        sortedProducts.sort((a, b) => {
+          const nameA: string = a[2].toLowerCase();
+          const nameB: string = b[2].toLowerCase();
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+          return 0;
+        });
+        break;
+    }
     
-    // setFilteredItemsArr(sortedProducts);
-    // setSpinner(false);
+    setFilteredItemsArr(sortedProducts);
+    setSpinner(false);
   }
-  
-  // function filterProductsReverseAlphabetically(products): void {
-  //   const sortedProducts = [...products];
-  //  
-  //   setFilteredItemsArr([])
-  //   setSpinner(true);
-  //  
-  //   sortedProducts.sort((a, b) => {
-  //     const nameA = a[2].toLowerCase();
-  //     const nameB = b[2].toLowerCase();
-  //     if (nameA < nameB) return 1;
-  //     if (nameA > nameB) return -1;
-  //     return 0;
-  //   });
-  //  
-  //   setFilteredItemsArr(sortedProducts);
-  //   setSpinner(false);
-  // }
-  //
-  // function sortByElementAscending(products, index: number) {
-  //   const sortedProducts = [...products];
-  //  
-  //   setFilteredItemsArr([])
-  //   setSpinner(true);
-  //  
-  //   sortedProducts.sort((a, b) => parseFloat(a[index]) - parseFloat(b[index]));
-  //  
-  //   setFilteredItemsArr(sortedProducts);
-  //   setSpinner(false);
-  // }
-  //
-  // function sortByElementDescending(products, index: number): void {
-  //   const sortedProducts = [...products];
-  //  
-  //   setFilteredItemsArr([])
-  //   setSpinner(true);
-  //  
-  //   sortedProducts.sort((a, b) => parseFloat(b[index]) - parseFloat(a[index]));
-  //  
-  //   setFilteredItemsArr(sortedProducts);
-  //   setSpinner(false);
-  // }
   
   function clearFilters(): void {
-    // filterProductsByDependencies([], productItemsArr);
-    // var inputs = document.querySelectorAll('.filtering_side .filter_checkbox');
-    // for (var i = 0; i < inputs.length; i++) {
-    //   inputs[i].checked = false;
-    // }
+    if (productItemsArr) {
+      filterProductsByDependencies([], productItemsArr);
+    }
+    
+    let inputs = document.querySelectorAll('.filtering_side .filter_checkbox');
+    for (let i = 0; i < inputs.length; i++) {
+      const input = inputs[i] as HTMLInputElement
+      input.checked = false;
+    }
   }
   
-  // function filterProductsByDependencies(dependenciesList, products): void {
-  // const sortedProducts = [...products];
-  // let filteredProductKeys = [],
-  //   filteredProducts = []
-  //
-  // if (dependenciesList.length === 0) {
-  //   setFilteredItemsArr(productItemsArr)
-  //   setSelectedOption('disabledOption')
-  // } else {
-  //   for (let key in sortedProducts) {
-  //     for (let i in dependenciesList) {
-  //       if (sortedProducts[key][7].includes(dependenciesList[i])) {
-  //         if (!filteredProductKeys.includes(key)) {
-  //           filteredProductKeys.push(key)
-  //         }
-  //       }
-  //     }
-  //   }
-  //   for (let k in filteredProductKeys) {
-  //     filteredProducts.push(sortedProducts[filteredProductKeys[k]])
-  //   }
-  //   setFilteredItemsArr(filteredProducts);
-  //   setSelectedOption('disabledOption')
-  // }
-  // }
+  function filterProductsByDependencies(dependenciesList: string[], products: TProductItemArr[]): void {
+    const sortedProducts = [...products];
+    let filteredProductKeys: string[] = [],
+      filteredProducts: TProductItemArr[] = []
+    
+    if (dependenciesList.length === 0) {
+      setFilteredItemsArr(productItemsArr)
+      setSelectedOption('disabledOption')
+    } else {
+      for (let key in sortedProducts) {
+        for (let i in dependenciesList) {
+          if (sortedProducts[key][7].includes(dependenciesList[i])) {
+            if (!filteredProductKeys.includes(key)) {
+              filteredProductKeys.push(key)
+            }
+          }
+        }
+      }
+      for (let k = 0; k < filteredProductKeys.length; k++) {
+        filteredProducts.push(sortedProducts[Number(filteredProductKeys[k])])
+      }
+      setFilteredItemsArr(filteredProducts);
+      setSelectedOption('disabledOption')
+    }
+  }
   
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {value, checked} = event.target;
+    setSelectedCheckboxes(prevState =>
+      checked ? [...prevState, value] : prevState.filter(item => item !== value)
+    );
+  };
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // let filterDependencies = []
-    //
-    // for (var key in e.target.filter_checkbox) {
-    //   if (e.target.filter_checkbox[key].checked === true) {
-    //     filterDependencies.push(e.target.filter_checkbox[key].value);
-    //   }
-    // }
-    //
-    // filterProductsByDependencies(filterDependencies, productItemsArr);
+    if (productItemsArr) {
+      filterProductsByDependencies(selectedCheckboxes, productItemsArr);
+    }
   };
   
   return (
@@ -198,7 +177,10 @@ export const CategorySection: React.FC<ICategorySection> = ({categoryType, filte
           <div className="filtering_sides">
             <form className="filtering_side" onSubmit={handleSubmit}>
               {
-                filters?.map((item, index) => <ProductFilter key={index} filter={item}/>)
+                filters?.map((item, index) => <ProductFilter
+                  key={index}
+                  filter={item}
+                  inputChange={handleCheckboxChange}/>)
               }
             </form>
             <div className="clear_filters_side">
@@ -224,8 +206,10 @@ export const CategorySection: React.FC<ICategorySection> = ({categoryType, filte
         </div>
         <div className="product_items">
           {
-            spinner ? <Preloader customClass={spinnerClass}/> : filteredItemsArr.map((item, index) => <ProductItem
-              itemInfo={item} key={index}/>)
+            spinner ?
+              <Preloader customClass={spinnerClass}/>
+              : (filteredItemsArr && filteredItemsArr.length > 0) ? filteredItemsArr.map((item, index: number) =>
+                <ProductItem itemInfo={item} key={index}/>) : <p>Таких товаров нет!</p>
           }
         </div>
         {/*<div className="category_more_wrapper">*/}
