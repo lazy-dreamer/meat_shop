@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import Select from "react-select";
 import {Preloader} from "../components/Preloader";
 import {Link, useParams} from "react-router-dom";
 import {ProductService} from '../services/product.service'
@@ -23,6 +24,22 @@ interface IProductPage {
   type: string[]
 }
 
+const sliceTypesOptions = [
+  {value: 'Способ нарезки', label: 'Способ нарезки', isDisabled: true},
+  {value: 'Без нарезки', label: 'Без нарезки'},
+  {value: 'Слайсами', label: 'Слайсами'},
+  {value: 'Большими кусками', label: 'Большими кусками'},
+  {value: 'Стейки', label: 'Стейки'},
+  {value: 'На шашлык', label: 'На шашлык'},
+]
+const sliceThicknessOptions = [
+  {value: 'Толщина нарезки', label: 'Толщина нарезки', isDisabled: true},
+  {value: 'Стандартно', label: 'Стандартно'},
+  {value: '1 см', label: '1 см'},
+  {value: '2 см', label: '2 см'},
+  {value: '3 см', label: '3 см'}
+]
+
 export function ProductPage() {
   const {id} = useParams();
   
@@ -37,6 +54,7 @@ export function ProductPage() {
     sliceThickness: '',
     comment: ''
   });
+  
   const [cartProductCount, setCartProductCount] = useState(1)
   
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
@@ -44,6 +62,7 @@ export function ProductPage() {
   let priceIncrease = parseInt((parseFloat(totalWeight.toString()) / productWeight).toFixed());
   
   let isInCart = isProductIdInCart(Number(id), cartItems)
+  let itemInCart = cartItems.find((el: any) => el.id === Number(id))
   
   useEffect(() => {
     if (!id) return;
@@ -57,24 +76,29 @@ export function ProductPage() {
       setTotalPrice(data.price)
     }
     fetchData()
-    // console.log('id')
   }, [id]);
   useEffect(() => {
     calculateTotalPrice()
-    // console.log('totalWeight')
   }, [totalWeight]);
   
   useEffect(() => {
     if (product !== undefined) {
       if (isInCart) {
-        let itemInCart = cartItems.find((el: any) => el.id === Number(id))
+        
         setCartProductCount(itemInCart.itemCount * productWeight);
+        
+        setFieldsData(
+          prev => ({
+            ...prev,
+            sliceType: itemInCart.cartItemInfo.sliceType,
+            sliceThickness: itemInCart.cartItemInfo.sliceThickness
+          })
+        )
         
       } else {
         setCartProductCount(productWeight);
       }
     }
-    // console.log('product')
   }, [id, product, cartItems]);
   
   
@@ -122,7 +146,6 @@ export function ProductPage() {
   
   // console.log(totalWeight)
   
-  
   return (
     <section className="section-product">
       <div className="bg_noise"/>
@@ -163,38 +186,45 @@ export function ProductPage() {
                   product?.type.includes("stuffing") ? '' : <>
                     <div className="form_element half">
                       <div className="select_wrapper">
-                        <select className="select" name=""
-                                onChange={(e) => setFieldsData(prev => ({...prev, sliceType: e.target.value}))}>
-                          <option value="Способ нарезки" disabled={true} defaultValue='Способ нарезк'>Способ нарезки
-                          </option>
-                          <option value="Без нарезки">Без нарезки</option>
-                          <option value="Слайсами">Слайсами</option>
-                          <option value="Большими кусками">Большими кусками</option>
-                          <option value="Стейки">Стейки</option>
-                          <option value="На шашлык">На шашлык</option>
-                        </select>
+                        <Select
+                          defaultValue={isInCart ? sliceTypesOptions.find(item => item.value === itemInCart.cartItemInfo.sliceType) : sliceTypesOptions[0]}
+                          onChange={(opt) => {
+                            if (opt) {
+                              setFieldsData(prev => ({...prev, sliceType: opt.value}))
+                            }
+                          }}
+                          name="slice types"
+                          classNamePrefix="react-select"
+                          placeholder="Способ нарезки"
+                          options={sliceTypesOptions}
+                        />
                       </div>
                     </div>
                     <div className="form_element half">
                       <div className="select_wrapper">
-                        <select className="select" name=""
-                                onChange={(e) => setFieldsData(prev => ({...prev, sliceThickness: e.target.value}))}>
-                          <option value="Толщина нарезки" disabled={true} defaultValue='Толщина нарезки'>Толщина
-                            нарезки
-                          </option>
-                          <option value="Стандартно">Стандартно</option>
-                          <option value="1 см">1 см</option>
-                          <option value="2 см">2 см</option>
-                          <option value="3 см">3 см</option>
-                        </select>
+                        <Select
+                          defaultValue={isInCart ? sliceThicknessOptions.find(item => item.value === itemInCart.cartItemInfo.sliceThickness) : sliceThicknessOptions[0]}
+                          onChange={(opt) => {
+                            if (opt) {
+                              setFieldsData(prev => ({...prev, sliceThickness: opt.value}))
+                            }
+                          }}
+                          classNamePrefix="react-select"
+                          placeholder="Толщина нарезки"
+                          name="slice thickness"
+                          options={sliceThicknessOptions}
+                        />
                       </div>
                     </div>
                   </>
                 }
                 
                 <div className="form_element">
-                  <textarea name="" onChange={(e) => setFieldsData(prev => ({...prev, comment: e.target.value}))}
-                            placeholder="Комментарий мяснику"/>
+                  <textarea
+                    name=""
+                    onChange={(e) => setFieldsData(prev => ({...prev, comment: e.target.value}))}
+                    defaultValue={isInCart ? itemInCart.cartItemInfo.comment : fieldsData.comment}
+                    placeholder="Комментарий мяснику"/>
                 </div>
                 <div className="form_element">
                   <button className="main_btn wide" type="button" onClick={addCartItem}>

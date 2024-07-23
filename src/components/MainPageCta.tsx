@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Preloader} from "./Preloader";
 import {CtaSection} from "../pages/MainPage";
 import {Link} from "react-router-dom";
+import {useForm} from "react-hook-form";
 
 interface IMainPageCta {
   sectionInfo: CtaSection;
@@ -10,6 +11,13 @@ interface IMainPageCta {
 export const MainPageCta: React.FC<IMainPageCta> = ({sectionInfo}) => {
   const [sectionData, setSectionData] = useState<CtaSection | undefined>();
   const [spinner, setSpinner] = useState(true);
+  
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+  } = useForm();
+  
   useEffect(() => {
     setSectionData(sectionInfo)
     setSpinner(false)
@@ -20,6 +28,10 @@ export const MainPageCta: React.FC<IMainPageCta> = ({sectionInfo}) => {
   }
   
   let {sectionName, sectionTitle, sectionSubTitle, screenForm} = sectionData;
+  
+  const ctaSubmit = (data: any) => {
+    console.log(data)
+  }
   
   return (
     <section className="section-cta remove_pt remove_pb" data-title={sectionName}>
@@ -33,20 +45,37 @@ export const MainPageCta: React.FC<IMainPageCta> = ({sectionInfo}) => {
             </div>
           </div>
           <div className="cta_side form_side">
-            <form className="form_send" action="mail.php" method="post"><input type="hidden" name="project_name"
-                                                                               value=""/><input type="hidden"
-                                                                                                name="form_subject"
-                                                                                                value=""/>
+            <form className="form_send" onSubmit={handleSubmit(ctaSubmit)} method="post">
+              <input type="hidden" name="project_name" value=""/>
+              <input type="hidden" name="form_subject" value=""/>
               <div className="form_heading simple_text">
                 <h5>{screenForm.formTitle}</h5>
                 <p>{screenForm.formSubTitle}</p>
               </div>
               <div className="form_elements">
-                {
-                  screenForm.formFields.map((formField, index) => <div key={index} className="form_element half">
-                    <input type={formField.fieldType} placeholder={formField.fieldPlaceholder}
-                           name={formField.fieldName}/></div>)
-                }
+                <div className="form_element half">
+                  <input type='text' {...register('firstName', {
+                      required: true,
+                      minLength: {
+                        value: 3,
+                        message: 'Минимум 3 символа.'
+                      }
+                    }
+                  )} placeholder='ВАШЕ ИМЯ'/>
+                </div>
+                <div className="form_element half">
+                  <input type='tel' {...register('phoneNumber', {
+                    required: true,
+                    minLength: {
+                      value: 10,
+                      message: 'Минимум 10 символа.'
+                    }
+                  })} placeholder='НОМЕР ТЕЛЕФОНА'/>
+                </div>
+                {/* Имя обязательно!*/}
+                {errors.firstName && <div className="form_element red">Имя обязательно!</div>}
+                {/*{errors.firstName && <div className="form_element red">{errors?.firstName?.message}</div>}*/}
+                {errors.phoneNumber && <div className="form_element red">Номер телефона обязателен!</div>}
                 <div className="form_element half self_aligned">
                   <div className="mfv_checker"><label className="ch_block">
                     <input className="mfv_checker_input" type="checkbox" name="согласие на обработку данных"/>

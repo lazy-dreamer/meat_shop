@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from "react";
 import {Preloader} from "./Preloader";
 import Slider from "react-slick";
+import Fancybox from "./Fancybox";
 
 interface IsertSection {
   "sectionInfo": IsertSectionIn
@@ -86,19 +87,27 @@ export const Sertificats: React.FC<IsertSection> = ({sectionInfo}) => {
         
         </div>
         <div className="populars_slider_wrapper">
-          <Slider ref={sliderRef} {...settings}>
-            {sertBlocks.map((slide, index: number) => (
-              <div key={index}>
-                <div className="populars_slide product_item">
-                  <a className="product_item_img_frame larger" target="_blank" href={slide[0]}><span
-                    className="product_item_img lozad" style={{backgroundImage: `url(${slide[0]})`}}/></a>
-                  <div className="product_item_body text_center">
-                    <div className="product_item_title">{slide[1]}</div>
+          <Fancybox
+            options={{
+              Carousel: {
+                infinite: false
+              }
+            }}
+          >
+            <Slider ref={sliderRef} {...settings}>
+              {sertBlocks.map((slide, index: number) => (
+                <div key={index}>
+                  <div className="populars_slide product_item">
+                    <a className="product_item_img_frame larger" data-fancybox="gallery" href={slide[0]}><span
+                      className="product_item_img" style={{backgroundImage: `url(${slide[0]})`}}/></a>
+                    <div className="product_item_body text_center">
+                      <div className="product_item_title">{slide[1]}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </Slider>
+              ))}
+            </Slider>
+          </Fancybox>
         </div>
       </div>
     </section>

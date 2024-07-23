@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Preloader} from "./Preloader";
 import {IProductArr, ProductService} from "../services/product.service";
 import {ProductItem} from "./ProductItem";
 import {ProductFilter} from "./ProductFilter";
 import {TProductItemArr} from "./MainPageProductItems";
+import Select, {SelectInstance} from "react-select";
 
 export interface ICategoryFilter {
   filterName: string;
@@ -15,16 +16,30 @@ export interface ICategorySection {
   filters: ICategoryFilter[] | undefined;
 }
 
+export interface ISelectOption {
+  value: string;
+  label: string
+}
+
+const options = [
+  {value: 'disabledOption', label: 'Сортировка', isDisabled: true},
+  {value: 'name_start', label: 'Название А - Я'},
+  {value: 'name_end', label: 'Название Я - А'},
+  {value: 'price_up', label: 'Цена по возростанию'},
+  {value: 'price_down', label: 'Цена по убыванию'},
+  {value: 'weight_light', label: 'Вес - легче'},
+  {value: 'weight_heavy', label: 'Вес - тяжелее'}
+]
+
 export const CategorySection: React.FC<ICategorySection> = ({categoryType, filters}) => {
   let spinnerClass = '';
   
-  const [products, setProducts] = useState<IProductArr[] | undefined>();
   const [productItemsArr, setProductItemsArr] = useState<TProductItemArr[] | undefined>();
   const [filteredItemsArr, setFilteredItemsArr] = useState<TProductItemArr[] | undefined>();
-  const [selectedOption, setSelectedOption] = useState("disabledOption");
   const [spinner, setSpinner] = useState(true);
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
-  // console.log(products)
+  
+  const sortSelect = useRef<SelectInstance<ISelectOption | null>>(null);
   
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,7 +52,6 @@ export const CategorySection: React.FC<ICategorySection> = ({categoryType, filte
           }
         }
       }
-      setProducts(data)
       setProductItemsArr(fetchedItems)
       setSpinner(false);
       sortProductItems(fetchedItems, '')
@@ -45,12 +59,6 @@ export const CategorySection: React.FC<ICategorySection> = ({categoryType, filte
     fetchProducts()
     
   }, []);
-  
-  function sortingSelect(event: React.ChangeEvent<HTMLSelectElement>) {
-    let sortingSelectVal = event.target.value;
-    setSelectedOption(sortingSelectVal);
-    switchFilter(sortingSelectVal)
-  }
   
   function switchFilter(sortingVal: string) {
     if (filteredItemsArr?.length) {
@@ -129,7 +137,7 @@ export const CategorySection: React.FC<ICategorySection> = ({categoryType, filte
     
     if (dependenciesList.length === 0) {
       setFilteredItemsArr(productItemsArr)
-      setSelectedOption('disabledOption')
+      sortSelect.current && sortSelect.current.clearValue();
     } else {
       for (let key in sortedProducts) {
         for (let i in dependenciesList) {
@@ -144,7 +152,7 @@ export const CategorySection: React.FC<ICategorySection> = ({categoryType, filte
         filteredProducts.push(sortedProducts[Number(filteredProductKeys[k])])
       }
       setFilteredItemsArr(filteredProducts);
-      setSelectedOption('disabledOption')
+      sortSelect.current && sortSelect.current.clearValue();
     }
   }
   
@@ -191,16 +199,19 @@ export const CategorySection: React.FC<ICategorySection> = ({categoryType, filte
           </div>
           <div className="price_filter">
             <div className="select_wrapper changed with_ico">
-              <select className="select" value={selectedOption} name="" onChange={(e) => sortingSelect(e)}>
-                <option value="disabledOption" disabled>Сортировка</option>
-                <option value="name_start">Название А - Я</option>
-                <option value="name_end">Название Я - А</option>
-                <option value="price_up">Цена по возростанию</option>
-                <option value="price_down">Цена по убыванию</option>
-                <option value="weight_light">Вес - легче</option>
-                <option value="weight_heavy">Вес - тяжелее</option>
-              </select>
-              <div className="select_ico"><img src="../img/sorting.svg" alt="ico"/></div>
+              <Select
+                ref={sortSelect}
+                defaultValue={options[0]}
+                onChange={(opt) => {
+                  if (opt) switchFilter(opt.value)
+                }}
+                classNamePrefix="react-select"
+                placeholder="Сортировка"
+                options={options}
+              />
+              <div className="select_ico">
+                <img src="../img/sorting.svg" alt="ico"/>
+              </div>
             </div>
           </div>
         </div>
