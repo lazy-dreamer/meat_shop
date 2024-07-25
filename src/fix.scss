@@ -262,10 +262,10 @@ body {
 
 .price_filter .select_wrapper {
   height: 100%;
-}
 
-.price_filter .select_wrapper select {
-  height: 100%;
+  > *, .react-select__control {
+    height: 100%;
+  }
 }
 
 .clear_filters {
@@ -488,6 +488,7 @@ section {
     color: #fff !important;
   }
 
+
   &__control {
     background: #191716 !important;
     border-color: rgba(81, 80, 79, .31) !important;
@@ -499,6 +500,34 @@ section {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: .21rem;
+    height: 6rem;
+
+    &--menu-is-open {
+
+      .react-select__indicator {
+        > * {
+          -moz-transform: rotate(-180deg);
+          -ms-transform: rotate(-180deg);
+          -webkit-transform: rotate(-180deg);
+          -o-transform: rotate(-180deg);
+          transform: rotate(-180deg);
+        }
+      }
+    }
+
+    .react-select__value-container {
+      height: 100%;
+      padding-left: 2rem;
+    }
+
+    .react-select__input-container {
+      height: auto;
+      margin: 0;
+    }
+
+    .react-select__input {
+      height: 0;
+    }
 
     .react-select__indicator-separator {
       display: none !important;
@@ -530,4 +559,45 @@ section {
   }
 }
 
+.mfv_checker.error {
+  .ch_block_icon {
+    border-color: #CC2525;
+  }
+}
+
+.select_error {
+  .react-select__control {
+    border-color: #CC2525 !important;
+  }
+
+  .react-select__single-value {
+    color: #CC2525 !important;
+  }
+}
+
 //end of select
+
+.fancybox__content {
+  color: inherit !important;
+  background: rgba(#fff, 0) !important;
+}
+
+.fancybox__backdrop {
+  background: rgba(24, 24, 27, 0.9) !important;
+}
+
+.cta_modal {
+  background: #191716 !important;
+  border: 1px solid rgba(81, 80, 79, .31);
+  padding: 3rem;
+  border-radius: 2rem;
+  color: rgba(#fff, .5) !important;
+  width: 45rem !important;
+  max-width: 100%;
+}
+
+html.with-fancybox {
+  .header {
+    right: 2rem;
+  }
+}

@@ -3,9 +3,16 @@ import {Preloader} from "./Preloader";
 import {CtaSection} from "../pages/MainPage";
 import {Link} from "react-router-dom";
 import {useForm} from "react-hook-form";
+import {Fancybox} from "@fancyapps/ui";
 
 interface IMainPageCta {
   sectionInfo: CtaSection;
+}
+
+interface IFormFields {
+  firstName: string;
+  phoneNumber: string;
+  agree: boolean;
 }
 
 export const MainPageCta: React.FC<IMainPageCta> = ({sectionInfo}) => {
@@ -15,8 +22,10 @@ export const MainPageCta: React.FC<IMainPageCta> = ({sectionInfo}) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: {errors},
-  } = useForm();
+  } = useForm<IFormFields>({});
+  
   
   useEffect(() => {
     setSectionData(sectionInfo)
@@ -29,8 +38,28 @@ export const MainPageCta: React.FC<IMainPageCta> = ({sectionInfo}) => {
   
   let {sectionName, sectionTitle, sectionSubTitle, screenForm} = sectionData;
   
-  const ctaSubmit = (data: any) => {
-    console.log(data)
+  const ctaSubmit = (data: IFormFields) => {
+    const modal = '<div><div class="cta_modal"><div class="simple_text"><h2>Modal info:</h2><p>First name : ' + data.firstName + '</p><p>Phone number : ' + data.phoneNumber + '</p></div></div></div>';
+    Fancybox.show(
+      [
+        {
+          src: modal,
+          type: "html",
+        }
+      ],
+      {
+        on: {
+          close: () => {
+            reset()
+          }
+        }
+      }
+    )
+  }
+  const phoneKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "e" || e.key === "-") {
+      e.preventDefault();
+    }
   }
   
   return (
@@ -56,32 +85,27 @@ export const MainPageCta: React.FC<IMainPageCta> = ({sectionInfo}) => {
                 <div className="form_element half">
                   <input type='text' {...register('firstName', {
                       required: true,
-                      minLength: {
-                        value: 3,
-                        message: 'Минимум 3 символа.'
-                      }
+                      minLength: 3
                     }
-                  )} placeholder='ВАШЕ ИМЯ'/>
+                  )} className={errors.firstName && 'error'} placeholder='ВАШЕ ИМЯ'/>
                 </div>
                 <div className="form_element half">
-                  <input type='tel' {...register('phoneNumber', {
+                  <input type='number' {...register('phoneNumber', {
                     required: true,
-                    minLength: {
-                      value: 10,
-                      message: 'Минимум 10 символа.'
-                    }
-                  })} placeholder='НОМЕР ТЕЛЕФОНА'/>
+                    minLength: 10,
+                    maxLength: 12,
+                  })} className={errors.phoneNumber && 'error'} onKeyDown={phoneKeyPress} placeholder='НОМЕР ТЕЛЕФОНА'/>
                 </div>
-                {/* Имя обязательно!*/}
-                {errors.firstName && <div className="form_element red">Имя обязательно!</div>}
-                {/*{errors.firstName && <div className="form_element red">{errors?.firstName?.message}</div>}*/}
-                {errors.phoneNumber && <div className="form_element red">Номер телефона обязателен!</div>}
                 <div className="form_element half self_aligned">
-                  <div className="mfv_checker"><label className="ch_block">
-                    <input className="mfv_checker_input" type="checkbox" name="согласие на обработку данных"/>
-                    <div className="ch_block_icon"/>
-                    <span className="mfv_checker_text">Я согласен на обработку персональных данных и c  <Link
-                      to='/policy'>политикой конфиденциальности</Link></span></label>
+                  <div className={errors.agree ? 'error mfv_checker' : 'mfv_checker'}>
+                    <label className="ch_block">
+                      <input className={errors.agree ? 'error ' : ''}
+                             type="checkbox" {...register('agree', {required: true}
+                      )} />
+                      <div className="ch_block_icon"/>
+                      <span className="mfv_checker_text">Я согласен на обработку персональных данных и c  <Link
+                        to='/policy'>политикой конфиденциальности</Link></span>
+                    </label>
                   </div>
                 </div>
                 <div className="form_element half">

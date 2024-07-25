@@ -6,9 +6,8 @@ import logo from "../img/main_logo.svg";
 import phoneImg from "../img/phone.svg";
 import controlImg2 from "../img/header_control2.svg";
 import {Search} from "./Search";
-import {AppDispatch, RootState} from "../redux/store";
-import {useDispatch, useSelector} from "react-redux";
-import {clearCart, clearDiscount, setCartItems, setCartTotal, setDiscount,} from "../redux/cartSlice";
+import {RootState} from "../redux/store";
+import {useSelector} from "react-redux";
 
 interface IHeader {
   logoLink: string;

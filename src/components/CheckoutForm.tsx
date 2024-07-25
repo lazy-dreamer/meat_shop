@@ -1,243 +1,227 @@
 import {Link, useNavigate} from "react-router-dom";
 import React, {useState} from "react";
-import {Modal} from "./Modal";
 import {IOrderInfo} from "../pages/Checkout";
+import {useForm, Controller} from "react-hook-form";
+import Select from "react-select";
+import {ISelectOption} from "./CategorySection";
+import {Fancybox} from "@fancyapps/ui";
+import {createRoot} from "react-dom/client";
 
-const checkoutDefaultData = {
-  userData: {
-    name: {
-      value: '',
-      description: "Имя",
-      isRequired: true,
-      isError: false
-    },
-    surname: {
-      value: '',
-      description: "Фамилия",
-      isRequired: true,
-      isError: false
-    },
-    fathersName: {
-      value: '',
-      description: "Отчество",
-      isRequired: false,
-      isError: false
-    },
-    city: {
-      value: '',
-      description: "Город",
-      isRequired: true,
-      isError: false
-    },
-    phone: {
-      value: '',
-      description: "Телефон",
-      isRequired: true,
-      isError: false
-    },
-    email: {
-      value: '',
-      description: "Email",
-      isRequired: false,
-      isError: false
-    }
-  },
-  delivery: {
-    deliveryType: 'pickup',
-    variantDescription: {
-      pickup: "Самовывоз",
-      postService: "Почта",
-      courier: "Курьер"
-    },
-    address: {
-      value: '',
-      isRequired: false,
-      isError: false
-    }
-  },
-  payment: {
-    paymentType: 'personal',
-    variantDescription: {
-      personal: "При получиении",
-      online: "Онлайн на сайте"
-    },
-    isOnline: false,
-    isError: false,
-    isPaid: false
-  }
+
+const checkoutTitles = {
+  name: "Имя",
+  surname: "Фамилия",
+  parents_name: "Отчество",
+  city: "Город",
+  phone: "Телефон",
+  email: "e-mail",
+  delivery: "Способ доставки",
+  payment: "Способ оплаты",
+  address: "Адрес доставки",
+  payment_status: "Статус оплаты"
 }
 
 interface IInfo {
   info: IOrderInfo
 }
 
+const deliveryOptions = [
+  {value: 'undefined', label: 'Доставка', isDisabled: true},
+  {value: 'pickup', label: 'Самовывоз'},
+  {value: 'postService', label: 'Почта'},
+  {value: 'courier', label: 'Курьер'}
+]
+const paymentOptions = [
+  {value: 'undefined', label: 'Оплата', isDisabled: true},
+  {value: 'personal', label: 'При получиении'},
+  {value: 'online', label: 'Онлайн на сайте'}
+]
+
 export const CheckoutForm: React.FC<IInfo> = ({info}) => {
-  const [checkoutInfo, setCheckoutInfo] = useState(checkoutDefaultData)
-  const [modalShow, setModalShow] = useState(false)
+  const [deliveryField, setDeliveryField] = useState(false)
+  const [paymentShow, setPaymentShow] = useState(false)
+  const [isPayed, setIsPayed] = useState(false)
+  const [isPaymentError, setIsPaymentError] = useState(false)
   
   const navigate = useNavigate();
   
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: {errors},
+  } = useForm({
+    mode: "onSubmit"
+  });
+  
   function paymentError() {
-    setCheckoutInfo(prevState => ({
-      ...prevState,
-      payment: {
-        ...prevState.payment,
-        isError: true
-      }
-    }));
+    setIsPaymentError(true)
     setTimeout(function () {
-      setCheckoutInfo(prevState => ({
-        ...prevState,
-        payment: {
-          ...prevState.payment,
-          isError: false
-        }
-      }));
+      setIsPaymentError(false)
     }, 2000)
   }
   
-  const handleChangeDeliveryType = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    let addressRequired = false;
+  const handleChangeDeliveryType = (val: ISelectOption) => {
+    const value = val.value;
     if (value !== "pickup") {
-      addressRequired = true;
+      setDeliveryField(true)
+    } else {
+      setDeliveryField(false)
     }
-    setCheckoutInfo(prevState => ({
-      ...prevState,
-      delivery: {
-        ...prevState.delivery,
-        deliveryType: value,
-        address: {
-          ...prevState.delivery.address,
-          isRequired: addressRequired
-        }
-      }
-    }));
   };
-  const handleChangePaymentType = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    let isOnlineValue = false;
+  const handleChangePaymentType = (val: ISelectOption) => {
+    const value = val.value;
     if (value === "online") {
-      isOnlineValue = true;
+      setPaymentShow(true)
+    } else {
+      setPaymentShow(false)
     }
-    setCheckoutInfo(prevState => ({
-      ...prevState,
-      payment: {
-        ...prevState.payment,
-        paymentType: value,
-        isOnline: isOnlineValue
-      }
-    }));
   };
   const paymentToggler = () => {
-    let toggleState = checkoutInfo.payment.isPaid;
-    
-    setCheckoutInfo(prevState => ({
-      ...prevState,
-      payment: {
-        ...prevState.payment,
-        isPaid: !toggleState
-      }
-    }));
+    setIsPayed(true)
   }
-  const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (checkoutInfo.payment.isOnline) {
-      if (checkoutInfo.payment.isPaid) {
-        modalToggle()
+  
+  const formSubmit = (data: any) => {
+    if (paymentShow) {
+      if (isPayed) {
+        modalOpen(data)
       } else {
         paymentError()
       }
     } else {
-      modalToggle()
+      modalOpen(data)
     }
   }
-  const orderSubmit = () => {
-    setModalShow(false)
-    navigate("/success");
+  
+  function closePopup() {
+    Fancybox.close();
   }
   
-  function modalToggle() {
-    setModalShow(prev => !prev)
+  const modalOpen = (data: any) => {
+    Fancybox.show(
+      [
+        {
+          src: '<div></div>',
+          type: "html",
+        }
+      ],
+      {
+        on: {
+          reveal: (_fancybox, slide) => {
+            const root = createRoot(
+              slide.contentEl.appendChild(document.createElement("div"))
+            );
+            
+            root.render(
+              <div className="modal_win checkout_lines">
+                <div className="main_title_wrapper">
+                  <div className="main_title">Оформление заказа</div>
+                </div>
+                <div className="checkout_line bottom_offset">
+                  <div className="aside_side_frame_title">Вы заказали:</div>
+                  <div className="simple_text">
+                    <ol className="product_count_list">
+                      {
+                        info.cartItems.map((item, index) => <li key={index}>{item}</li>)
+                      }
+                    </ol>
+                    <p>На общую стоимость: <strong>{info.cartTotalWithDiscount} ₪</strong></p>
+                  </div>
+                </div>
+                <div className="checkout_line bottom_offset">
+                  <div className="aside_side_frame_title">Контактные данные</div>
+                  <div className="simple_text">
+                    <ul className="product_count_list">
+                      {
+                        Object.entries(data).map(([key, value], index) => (
+                          <li key={index}>
+                            {checkoutTitles[key as keyof typeof checkoutTitles]}: {
+                            typeof data[key] === 'object' && data[key] !== null ? data[key].label :
+                              data[key].length > 0 ? data[key] : "Не указано"
+                          }
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </div>
+                </div>
+                <div className="checkout_line">
+                  <div className="controll_buttons">
+                    <button className="main_btn filled" type="button" onClick={closePopup}><span
+                      className="main_btn_inner">Отмена</span></button>
+                    <button className="main_btn" type="button" onClick={orderSubmit}><span
+                      className="main_btn_inner">Подтверждаю</span></button>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+        }
+      }
+    )
+  }
+  
+  const orderSubmit = () => {
+    window.scrollTo(0, 0)
+    closePopup()
+    reset()
+    navigate("/success");
   }
   
   return (
     <>
-      <form className="checkout_lines" action="" onSubmit={formSubmit} autoComplete="off">
+      <form className="checkout_lines" onSubmit={handleSubmit(formSubmit)} autoComplete="off">
         <div className="checkout_line bottom_offset">
           <div className="aside_side_frame_title">Контактные данные</div>
           <div className="form_elements">
             <div className="form_element half">
-              <input type="text" placeholder="Имя" name="name" required={checkoutInfo.userData.name.isRequired}
-                     onChange={(e) => setCheckoutInfo(prev => ({
-                       ...prev, userData: {
-                         ...prev.userData,
-                         name: {
-                           ...prev.userData.name,
-                           value: e.target.value
-                         }
-                       }
-                     }))} autoComplete="none"/>
-            </div>
-            <div className="form_element half">
-              <input type="text" placeholder="Фамилия" name="surname"
-                     required={checkoutInfo.userData.surname.isRequired} onChange={(e) => setCheckoutInfo(prev => ({
-                ...prev, userData: {
-                  ...prev.userData,
-                  surname: {
-                    ...prev.userData.surname,
-                    value: e.target.value
+              <input type='text' {...register('name', {
+                  required: true,
+                  minLength: {
+                    value: 3,
+                    message: 'Минимум 3 символа.'
                   }
                 }
-              }))} autoComplete="none"/>
+              )} autoComplete='none' className={errors.name && 'error'} placeholder='Имя'/>
             </div>
             <div className="form_element half">
-              <input type="text" placeholder="Отчество" name="fathersName"
-                     required={checkoutInfo.userData.fathersName.isRequired} onChange={(e) => setCheckoutInfo(prev => ({
-                ...prev, userData: {
-                  ...prev.userData,
-                  fathersName: {
-                    ...prev.userData.fathersName,
-                    value: e.target.value
+              <input type='text' {...register('surname', {
+                  required: true,
+                  minLength: {
+                    value: 3,
+                    message: 'Минимум 3 символа.'
                   }
                 }
-              }))} autoComplete="none"/>
+              )} autoComplete='none' className={errors.surname && 'error'} placeholder='Фамилия'/>
             </div>
             <div className="form_element half">
-              <input type="text" placeholder="Город" name="city" required={checkoutInfo.userData.city.isRequired}
-                     onChange={(e) => setCheckoutInfo(prev => ({
-                       ...prev, userData: {
-                         ...prev.userData,
-                         city: {
-                           ...prev.userData.city,
-                           value: e.target.value
-                         }
-                       }
-                     }))} autoComplete="none"/>
+              
+              <input type='text' {...register('parents_name')} autoComplete='none' placeholder='Отчество'/>
             </div>
             <div className="form_element half">
-              <input type="tel" placeholder="Номер телефона" name="phone"
-                     required={checkoutInfo.userData.phone.isRequired} onChange={(e) => setCheckoutInfo(prev => ({
-                ...prev, userData: {
-                  ...prev.userData,
-                  phone: {
-                    ...prev.userData.phone,
-                    value: e.target.value
+              <input type='text' {...register('city')} autoComplete='none' placeholder='Город'/>
+            </div>
+            <div className="form_element half">
+              <input type='number' {...register('phone', {
+                required: true,
+                minLength: {
+                  value: 10,
+                  message: 'Минимум 3 символа.'
+                },
+                maxLength: 12,
+              })} autoComplete='none' className={errors.phone && 'error'} placeholder='Номер телефона'/>
+            </div>
+            <div className="form_element half">
+              <input
+                {...register("email", {
+                  required: true,
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: "Entered value does not match email format"
                   }
-                }
-              }))} autoComplete="none"/>
-            </div>
-            <div className="form_element half">
-              <input type="email" placeholder="E-mail" name="email" required={checkoutInfo.userData.email.isRequired}
-                     onChange={(e) => setCheckoutInfo(prev => ({
-                       ...prev, userData: {
-                         ...prev.userData,
-                         email: {
-                           ...prev.userData.email,
-                           value: e.target.value
-                         }
-                       }
-                     }))} autoComplete="none"/>
+                })}
+                type="email" autoComplete='none' className={errors.email && 'error'} placeholder="E-mail"/>
             </div>
           </div>
         </div>
@@ -247,26 +231,39 @@ export const CheckoutForm: React.FC<IInfo> = ({info}) => {
           <div className="form_elements">
             <div className="form_element half">
               <div className="select_wrapper">
-                <select className="select" defaultValue='pickup' name="" onChange={handleChangeDeliveryType}>
-                  <option value="pickup">Самовывоз</option>
-                  <option value="postService">Почта</option>
-                  <option value="courier">Курьер</option>
-                </select>
+                <Controller
+                  name="delivery"
+                  control={control}
+                  render={({field: {onChange}}) => (
+                    <Select
+                      defaultValue={deliveryOptions[0]}
+                      onChange={(val) => {
+                        if (val) {
+                          onChange(val)
+                          handleChangeDeliveryType(val)
+                        }
+                      }}
+                      classNamePrefix="react-select"
+                      placeholder="Доставка"
+                      options={deliveryOptions}
+                      className={errors.delivery && 'select_error'}
+                    />
+                  )}
+                  rules={{required: true}}
+                />
               </div>
             </div>
             {
-              checkoutInfo.delivery.deliveryType !== "pickup" && (
+              deliveryField && (
                 <div className="form_element half">
-                  <input type="text" placeholder="АДРЕС ДОСТАВКИ" name="address"
-                         required={checkoutInfo.delivery.address.isRequired} onChange={(e) => setCheckoutInfo(prev => ({
-                    ...prev, delivery: {
-                      ...prev.delivery,
-                      address: {
-                        ...prev.delivery.address,
-                        value: e.target.value
+                  <input type='text' {...register('address', {
+                      required: deliveryField,
+                      minLength: {
+                        value: 3,
+                        message: 'Минимум 3 символа.'
                       }
                     }
-                  }))} autoComplete="none"/>
+                  )} className={errors.address && 'error'} autoComplete='none' placeholder='Адрес доставки'/>
                 </div>
               )
             }
@@ -278,22 +275,41 @@ export const CheckoutForm: React.FC<IInfo> = ({info}) => {
           <div className="form_elements">
             <div className="form_element half">
               <div className="select_wrapper">
-                <select className="select" defaultValue='personal' name="" onChange={handleChangePaymentType}>
-                  <option value="personal">При получиении</option>
-                  <option value="online">Онлайн на сайте</option>
-                </select>
+                <Controller
+                  name="payment"
+                  control={control}
+                  render={({field: {onChange}}) => (
+                    <Select
+                      defaultValue={paymentOptions[0]}
+                      onChange={(val) => {
+                        if (val) {
+                          handleChangePaymentType(val)
+                          onChange(val)
+                        }
+                      }}
+                      classNamePrefix="react-select"
+                      placeholder="Оплата"
+                      options={paymentOptions}
+                      className={errors.payment && 'select_error'}
+                    />
+                  )}
+                  rules={{required: true}}
+                />
               </div>
             </div>
             {
-              checkoutInfo.payment.isOnline && (
-                checkoutInfo.payment.isPaid ? <div className="form_element half">
-                  <div className="main_btn wide label_button"><span className="main_btn_inner">Оплачено</span></div>
+              paymentShow && (
+                isPayed ? <div className="form_element half">
+                  <div className="main_btn wide label_button">
+                    <input type='hidden' {...register('payment_status')} value={isPayed ? 'Оплачено' : 'Не оплачено'}/>
+                    <span className="main_btn_inner">Оплачено</span></div>
                 </div> : <div className="form_element half">
-                  <button className={`main_btn wide ` + (checkoutInfo.payment.isError && 'error')} type="button"
+                  <button className={`main_btn wide ` + (isPaymentError && 'error')} type="button"
                           onClick={paymentToggler}><span className="main_btn_inner">Оплатить</span></button>
                 </div>
               )
             }
+          
           </div>
         </div>
         <div className="controll_buttons">
@@ -303,62 +319,6 @@ export const CheckoutForm: React.FC<IInfo> = ({info}) => {
             className="main_btn_inner">Оформить</span></button>
         </div>
       </form>
-      
-      
-      <Modal show={modalShow} setShow={setModalShow}>
-        <div className="modal_win checkout_lines">
-          <div className="main_title_wrapper">
-            <div className="main_title">Оформление заказа</div>
-          </div>
-          <div className="checkout_line bottom_offset">
-            <div className="aside_side_frame_title">Вы заказали:</div>
-            <div className="simple_text">
-              <ol className="product_count_list">
-                {
-                  info.cartItems.map((item, index) => <li key={index}>{item}</li>)
-                }
-              </ol>
-              <p>На общую стоимость: <strong>{info.cartTotalWithDiscount} ₪</strong></p>
-            </div>
-          </div>
-          <div className="checkout_line bottom_offset">
-            <div className="aside_side_frame_title">Контактные данные</div>
-            <div className="simple_text">
-              <ul className="product_count_list">
-                {
-                  Object.entries(checkoutInfo.userData).map(([key, {description, value}], index) => (
-                    <li key={index}>
-                      {description}: {value.length > 0 ? value : "Не указано"}
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-          </div>
-          <div className="checkout_line bottom_offset">
-            <div className="aside_side_frame_title">Доставка</div>
-            <p>Способ
-              доставки: {checkoutInfo.delivery.variantDescription[checkoutInfo.delivery.deliveryType as keyof typeof checkoutInfo.delivery.variantDescription]}</p>
-            <p>Адрес
-              доставки: {checkoutInfo.delivery.address.value.length > 0 ? checkoutInfo.delivery.address.value : 'Не указано'}</p>
-          </div>
-          <div className="checkout_line bottom_offset">
-            <div className="aside_side_frame_title">Оплата</div>
-            <p>Способ
-              оплаты: {checkoutInfo.payment.variantDescription[checkoutInfo.payment.paymentType as keyof typeof checkoutInfo.payment.variantDescription]}</p>
-            <p>Статус оплаты: {checkoutInfo.payment.isPaid ? "Оплачено" : "Не оплачено"}</p>
-          </div>
-          <div className="checkout_line">
-            <div className="controll_buttons">
-              <button className="main_btn filled" type="button" onClick={() => setModalShow(false)}><span
-                className="main_btn_inner">Отмена</span></button>
-              <button className="main_btn" type="button" onClick={orderSubmit}><span
-                className="main_btn_inner">Подтверждаю</span></button>
-            </div>
-          </div>
-        
-        </div>
-      </Modal>
     </>
   )
 }

@@ -29,7 +29,7 @@ export function Checkout() {
       cartItems: itemsInfo,
       cartTotalWithDiscount: cartTotal - cartDiscount.d_val
     }))
-  }, [cartItems]);
+  }, [cartItems, cartDiscount, cartTotal]);
   
   function deleteCartItem(id: number) {
     dispatch(removeFromCart(id))
