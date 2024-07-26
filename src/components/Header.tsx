@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {Preloader} from "./Preloader";
 import {ContentService} from "../services/content.service";
 import logo from "../img/main_logo.svg";
@@ -48,7 +48,10 @@ export function Header() {
           <ul className="nav_list">
             {
               navList.map((link, index: number) =>
-                <li key={index}><Link to={link[0]}>{link[1]}</Link></li>)
+                <li key={index}>
+                  <NavLink className={({isActive}) => isActive ? 'active' : ""}
+                           to={link[0]}>{link[1]}</NavLink>
+                </li>)
             }
           </ul>
         </div>

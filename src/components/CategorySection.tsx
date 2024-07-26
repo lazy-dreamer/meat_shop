@@ -33,6 +33,7 @@ const options = [
 
 export const CategorySection: React.FC<ICategorySection> = ({categoryType, filters}) => {
   let spinnerClass = '';
+  console.log(filters)
   
   const [productItemsArr, setProductItemsArr] = useState<TProductItemArr[] | undefined>();
   const [filteredItemsArr, setFilteredItemsArr] = useState<TProductItemArr[] | undefined>();
@@ -223,10 +224,6 @@ export const CategorySection: React.FC<ICategorySection> = ({categoryType, filte
                 <ProductItem itemInfo={item} key={index}/>) : <p>Таких товаров нет!</p>
           }
         </div>
-        {/*<div className="category_more_wrapper">*/}
-        {/*  <button className="main_btn bordered" type="button"><span*/}
-        {/*  className="main_btn_inner">Показать еще</span></button>*/}
-        {/*</div>*/}
       </div>
     </section>
   )
