@@ -14,7 +14,7 @@ interface INotFound {
   sectionImg: string;
 }
 
-export const NotFound: React.FC = () => {
+export const NotFoundPage: React.FC = () => {
   const [sectionData, setSectionData] = useState<INotFound | undefined>();
   const [spinner, setSpinner] = useState(true);
   useEffect(() => {

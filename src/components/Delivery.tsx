@@ -18,7 +18,7 @@ export interface IDeliveryScreen {
   sectionInfo: IDeliveryData
 }
 
-export const DeliveryScreen: React.FC<IDeliveryScreen> = ({sectionInfo}) => {
+export const Delivery: React.FC<IDeliveryScreen> = ({sectionInfo}) => {
   const [sectionData, setSectionData] = useState<IDeliveryData | undefined>();
   const [spinner, setSpinner] = useState(true);
   useEffect(() => {

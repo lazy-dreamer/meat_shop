@@ -3,7 +3,7 @@ import {Preloader} from "./Preloader";
 import {Link} from "react-router-dom";
 import {stylers} from '../services/map_styler'
 import {GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
-import {IContactSection} from "../pages/Contacts";
+import {IContactSection} from "../pages/ContactsPage";
 
 const mapContainerStyle = {
   width: '100%',
@@ -18,7 +18,7 @@ interface IContacts {
   sectionInfo: IContactSection
 }
 
-export const ContactsSection: React.FC<IContacts> = ({sectionInfo}) => {
+export const Contacts: React.FC<IContacts> = ({sectionInfo}) => {
   const [sectionData, setSectionData] = useState<IContactSection | undefined>();
   const [spinner, setSpinner] = useState(true);
   

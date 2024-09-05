@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Preloader} from "./Preloader";
-import {IDeliveryData, IDeliveryScreen} from "./DeliveryScreen";
+import {IDeliveryData, IDeliveryScreen} from "./Delivery";
 
-export const PaymentScreen: React.FC<IDeliveryScreen> = ({sectionInfo}) => {
+export const Payment: React.FC<IDeliveryScreen> = ({sectionInfo}) => {
   const [sectionData, setSectionData] = useState<IDeliveryData | undefined>();
   const [spinner, setSpinner] = useState(true);
   useEffect(() => {

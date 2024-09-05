@@ -13,7 +13,7 @@ interface IThanks {
   textLines: string[]
 }
 
-export const Thanks: React.FC = () => {
+export const ThanksPage: React.FC = () => {
   const [sectionData, setSectionData] = useState<IThanks | undefined>();
   const [spinner, setSpinner] = useState(true);
   const dispatch = useDispatch();

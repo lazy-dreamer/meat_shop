@@ -22,12 +22,12 @@ interface IFooterBottom {
 }
 
 interface IFooterData {
-  footerTopLine: IFooterTop;
   footerBottomLine: IFooterBottom;
+  footerTopLine: IFooterTop;
 }
 
 export const Footer: React.FC = () => {
-  const [sectionData, setSectionData] = useState<IFooterData | undefined>();
+  const [sectionData, setSectionData] = useState<IFooterData>();
   const [spinner, setSpinner] = useState(true);
   
   useEffect(() => {

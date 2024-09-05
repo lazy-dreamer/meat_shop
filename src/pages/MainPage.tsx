@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
-import {MainPageHeadSlider} from "../components/MainPageHeadSlider";
-import {MainPagePopulars} from "../components/MainPagePopulars";
-import {MainPageProductItems} from "../components/MainPageProductItems";
-import {MainPageCategories} from "../components/MainPageCategories";
-import {MainPageSteps} from "../components/MainPageSteps";
-import {MainPageAbout} from "../components/MainPageAbout";
-import {MainPageQuote} from "../components/MainPageQuote";
-import {MainPageCta} from "../components/MainPageCta";
+import {HeadSlider} from "../components/HeadSlider";
+import {Populars} from "../components/Populars";
+import {ProductItems} from "../components/ProductItems";
+import {Categories} from "../components/Categories";
+import {Steps} from "../components/Steps";
+import {About} from "../components/About";
+import {Quote} from "../components/Quote";
+import {Cta} from "../components/Cta";
 import {ContentService} from "../services/content.service";
 import {Preloader} from "../components/Preloader";
 
@@ -140,14 +140,14 @@ export function MainPage() {
   
   return (
     <>
-      <MainPageHeadSlider sectionInfo={mainSection}/>
-      <MainPagePopulars sectionInfo={populars}/>
-      <MainPageProductItems sectionInfo={newItems}/>
-      <MainPageCategories sectionInfo={category}/>
-      <MainPageSteps sectionInfo={infoCols}/>
-      <MainPageAbout sectionInfo={descriptions}/>
-      <MainPageQuote sectionInfo={quote}/>
-      <MainPageCta sectionInfo={cta}/>
+      <HeadSlider sectionInfo={mainSection}/>
+      <Populars sectionInfo={populars}/>
+      <ProductItems sectionInfo={newItems}/>
+      <Categories sectionInfo={category}/>
+      <Steps sectionInfo={infoCols}/>
+      <About sectionInfo={descriptions}/>
+      <Quote sectionInfo={quote}/>
+      <Cta sectionInfo={cta}/>
     </>
   )
 }

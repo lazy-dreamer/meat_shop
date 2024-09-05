@@ -9,10 +9,9 @@ interface IMainPageProductItems {
   sectionInfo: INewItems
 }
 
-// [id, productImage, name, price, priceUnit, weight, weightUnit, type]
 export type TProductItemArr = [number, string, string, number, string, number, string, string[]]
 
-export const MainPageProductItems: React.FC<IMainPageProductItems> = ({sectionInfo}) => {
+export const ProductItems: React.FC<IMainPageProductItems> = ({sectionInfo}) => {
   const [sectionData, setSectionData] = useState<INewItems | undefined>();
   const [spinner, setSpinner] = useState(true);
   const [products, setProducts] = useState<IProductArr[] | undefined>();

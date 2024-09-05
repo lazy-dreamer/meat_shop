@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {InnerPageHead} from "../components/InnerPageHead";
-import {MainPageSteps} from "../components/MainPageSteps";
-import {MainPageAbout} from "../components/MainPageAbout";
-import {MainPageQuote} from "../components/MainPageQuote";
+import {Steps} from "../components/Steps";
+import {About} from "../components/About";
+import {Quote} from "../components/Quote";
 import {InfoDescription} from "../components/InfoDescription"
 import {Sertificats} from "../components/Sertificats"
 import {ContentService} from "../services/content.service";
@@ -53,9 +53,9 @@ export const AboutPage: React.FC = () => {
     <>
       <InnerPageHead sectionInfo={headSection}/>
       <InfoDescription sectionInfo={infoDescriptions}/>
-      <MainPageSteps sectionInfo={infoCols}/>
-      <MainPageAbout sectionInfo={descriptions}/>
-      <MainPageQuote sectionInfo={quote}/>
+      <Steps sectionInfo={infoCols}/>
+      <About sectionInfo={descriptions}/>
+      <Quote sectionInfo={quote}/>
       <Sertificats sectionInfo={sertificats}/>
     </>
   )

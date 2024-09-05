@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {addToCart, ICartItem, removeFromCart} from '../redux/cartSlice'
-import {TProductItemArr} from "./MainPageProductItems";
+import {TProductItemArr} from "./ProductItems";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../redux/store";
 

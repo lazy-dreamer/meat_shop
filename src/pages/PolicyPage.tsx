@@ -1,4 +1,4 @@
-export function Policy() {
+export function PolicyPage() {
   return (
     <section>
       <div className="screen_content">

@@ -1,9 +1,9 @@
 import {Link, useNavigate} from "react-router-dom";
 import React, {useState} from "react";
-import {IOrderInfo} from "../pages/Checkout";
+import {IOrderInfo} from "../pages/CheckoutPage";
 import {useForm, Controller} from "react-hook-form";
 import Select from "react-select";
-import {ISelectOption} from "./CategorySection";
+import {ISelectOption} from "./Category";
 import {Fancybox} from "@fancyapps/ui";
 import {createRoot} from "react-dom/client";
 

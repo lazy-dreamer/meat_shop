@@ -1,4 +1,4 @@
-export function Terms() {
+export function TermsPage() {
   return (
     <section>
       <div className="screen_content">

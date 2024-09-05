@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {MainPageCta} from "../components/MainPageCta";
-import {ContactsSection} from "../components/ContactsSection";
+import {Cta} from "../components/Cta";
+import {Contacts} from "../components/Contacts";
 import {ContentService} from "../services/content.service";
 import {Preloader} from "../components/Preloader";
 import {CtaSection} from "./MainPage";
@@ -26,7 +26,7 @@ export interface IContactSection {
 
 type SectionData = [IContactSection, CtaSection];
 
-export function Contacts() {
+export function ContactsPage() {
   const [sectionsData, setSectionsData] = useState<SectionData | null>();
   const [spinner, setSpinner] = useState(true);
   
@@ -47,8 +47,8 @@ export function Contacts() {
   
   return (
     <>
-      <ContactsSection sectionInfo={contacts}/>
-      <MainPageCta sectionInfo={cta}/>
+      <Contacts sectionInfo={contacts}/>
+      <Cta sectionInfo={cta}/>
     </>
   )
 }

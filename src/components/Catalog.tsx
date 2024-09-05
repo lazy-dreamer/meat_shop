@@ -8,7 +8,7 @@ interface IFilterSet {
   filterVariants: string[][];
 }
 
-interface ICategorie {
+interface ICategory {
   name: string;
   bgImage: string;
   categoryHeadImage: string;
@@ -17,8 +17,8 @@ interface ICategorie {
 }
 
 
-export const CatalogPageCatalog: React.FC = () => {
-  const [categories, setCategories] = useState<ICategorie[] | null>(null);
+export const Catalog: React.FC = () => {
+  const [categories, setCategories] = useState<ICategory[] | null>(null);
   const [spinner, setSpinner] = useState(true);
   
   useEffect(() => {

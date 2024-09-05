@@ -3,7 +3,7 @@ import {Preloader} from "./Preloader";
 import {IProductArr, ProductService} from "../services/product.service";
 import {ProductItem} from "./ProductItem";
 import {ProductFilter} from "./ProductFilter";
-import {TProductItemArr} from "./MainPageProductItems";
+import {TProductItemArr} from "./ProductItems";
 import Select, {SelectInstance} from "react-select";
 
 export interface ICategoryFilter {
@@ -31,7 +31,7 @@ const options = [
   {value: 'weight_heavy', label: 'Вес - тяжелее'}
 ]
 
-export const CategorySection: React.FC<ICategorySection> = ({categoryType, filters}) => {
+export const Category: React.FC<ICategorySection> = ({categoryType, filters}) => {
   let spinnerClass = '';
   console.log(filters)
   

@@ -7,7 +7,7 @@ interface IMainPageAbout {
   sectionInfo: IMPAbout
 }
 
-export const MainPageAbout: React.FC<IMainPageAbout> = ({sectionInfo}) => {
+export const About: React.FC<IMainPageAbout> = ({sectionInfo}) => {
   const location = useLocation();
   
   const [sectionData, setSectionData] = useState<IMPAbout | undefined>();

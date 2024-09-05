@@ -7,7 +7,7 @@ interface IMCategories {
   sectionInfo: ICategories
 }
 
-export const MainPageCategories: React.FC<IMCategories> = ({sectionInfo}) => {
+export const Categories: React.FC<IMCategories> = ({sectionInfo}) => {
   const [sectionData, setSectionData] = useState<ICategories | undefined>();
   const [spinner, setSpinner] = useState(true);
   useEffect(() => {

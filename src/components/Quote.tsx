@@ -6,7 +6,7 @@ interface IMainPageQuote {
   sectionInfo: IMPQuote
 }
 
-export const MainPageQuote: React.FC<IMainPageQuote> = ({sectionInfo}) => {
+export const Quote: React.FC<IMainPageQuote> = ({sectionInfo}) => {
   const [sectionData, setSectionData] = useState<IMPQuote | undefined>();
   const [spinner, setSpinner] = useState(true);
   useEffect(() => {

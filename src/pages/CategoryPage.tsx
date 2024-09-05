@@ -3,10 +3,10 @@ import {InnerPageHead} from "../components/InnerPageHead";
 import {useParams} from "react-router-dom";
 import {ProductService} from "../services/product.service";
 import {Preloader} from "../components/Preloader";
-import {CategorySection, ICategoryFilter} from "../components/CategorySection";
+import {Category, ICategoryFilter} from "../components/Category";
 import {IInnerPageHead} from "./AboutPage";
 
-export function Category() {
+export function CategoryPage() {
   const {id} = useParams();
   const [headSectionData, setHeadSectionData] = useState<IInnerPageHead>({
     "sectionName": "Шапка",
@@ -46,7 +46,7 @@ export function Category() {
   return (
     spinner ? <Preloader customClass={spinnerClass}/> : <>
       <InnerPageHead sectionInfo={headSectionData}/>
-      <CategorySection categoryType={id} filters={categoryFilters}/>
+      <Category categoryType={id} filters={categoryFilters}/>
     </>
   )
 }

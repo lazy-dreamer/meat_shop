@@ -8,7 +8,7 @@ interface IMainPagePopulars {
   sectionInfo: IPopulars
 }
 
-export const MainPagePopulars: React.FC<IMainPagePopulars> = ({sectionInfo}) => {
+export const Populars: React.FC<IMainPagePopulars> = ({sectionInfo}) => {
   let sliderRef = React.useRef<Slider>(null);
   const next = () => {
     sliderRef?.current?.slickNext();

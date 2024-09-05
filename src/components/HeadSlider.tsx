@@ -8,7 +8,7 @@ interface IMainPageHeadSlider {
   sectionInfo: IMainHero
 }
 
-export const MainPageHeadSlider: React.FC<IMainPageHeadSlider> = ({sectionInfo}) => {
+export const HeadSlider: React.FC<IMainPageHeadSlider> = ({sectionInfo}) => {
   const [sectionData, setSectionData] = useState<IMainHero | undefined>();
   const [spinner, setSpinner] = useState(true);
   useEffect(() => {

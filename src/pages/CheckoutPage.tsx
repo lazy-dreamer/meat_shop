@@ -11,7 +11,7 @@ export interface IOrderInfo {
   cartTotalWithDiscount: number
 }
 
-export function Checkout() {
+export function CheckoutPage() {
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const cartDiscount = useSelector((state: RootState) => state.cart.cartDiscount);
   const cartTotal = useSelector((state: RootState) => state.cart.totalCartPrice);

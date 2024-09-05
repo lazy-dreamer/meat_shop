@@ -15,7 +15,7 @@ interface IFormFields {
   agree: boolean;
 }
 
-export const MainPageCta: React.FC<IMainPageCta> = ({sectionInfo}) => {
+export const Cta: React.FC<IMainPageCta> = ({sectionInfo}) => {
   const [sectionData, setSectionData] = useState<CtaSection | undefined>();
   const [spinner, setSpinner] = useState(true);
   

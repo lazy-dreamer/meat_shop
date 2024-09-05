@@ -6,7 +6,7 @@ interface IMainPageCols {
   sectionInfo: IInfoCols
 }
 
-export const MainPageSteps: React.FC<IMainPageCols> = ({sectionInfo}) => {
+export const Steps: React.FC<IMainPageCols> = ({sectionInfo}) => {
   const [sectionData, setSectionData] = useState<IInfoCols | undefined>();
   const [spinner, setSpinner] = useState(true);
   useEffect(() => {

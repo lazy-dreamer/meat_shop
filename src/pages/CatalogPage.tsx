@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {CatalogPageCatalog} from '../components/CatalogPageCatalog'
-import {MainPageSteps} from "../components/MainPageSteps";
+import {Catalog} from '../components/Catalog'
+import {Steps} from "../components/Steps";
 import {InnerPageHead} from "../components/InnerPageHead"
-import {MainPageCta} from "../components/MainPageCta";
+import {Cta} from "../components/Cta";
 import {ContentService} from "../services/content.service";
 import {Preloader} from "../components/Preloader";
 import {IInnerPageHead} from "./AboutPage";
@@ -21,7 +21,7 @@ interface ICAtegories {
 
 type TCatalogPage = [IInnerPageHead, ICAtegories, IInfoCols, CtaSection]
 
-export function Catalog() {
+export function CatalogPage() {
   const [sectionsData, setSectionsData] = useState<TCatalogPage | undefined>();
   const [spinner, setSpinner] = useState(true);
   
@@ -44,9 +44,9 @@ export function Catalog() {
   return (
     <>
       <InnerPageHead sectionInfo={headSection}/>
-      <CatalogPageCatalog/>
-      <MainPageSteps sectionInfo={infoCols}/>
-      <MainPageCta sectionInfo={cta}/>
+      <Catalog/>
+      <Steps sectionInfo={infoCols}/>
+      <Cta sectionInfo={cta}/>
     </>
   )
 }
