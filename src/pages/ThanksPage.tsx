@@ -28,7 +28,6 @@ export const ThanksPage: React.FC = () => {
     }
     fetchData()
     
-    
     dispatch(clearDiscount())
     dispatch(clearCart())
     

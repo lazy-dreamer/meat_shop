@@ -9,7 +9,6 @@ import {ContentService} from "../services/content.service";
 import {Preloader} from "../components/Preloader";
 import {IInfoCols, IMPAbout, IMPQuote} from "./MainPage";
 
-
 export interface IInnerPageHead {
   sectionName: string;
   sectionBg: string;

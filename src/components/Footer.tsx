@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {Preloader} from "./Preloader";
-import {Link} from "react-router-dom";
-import {ContentService} from "../services/content.service";
+import React, { useEffect, useState } from "react";
+import { Preloader } from "./Preloader";
+import { Link } from "react-router-dom";
+import { ContentService } from "../services/content.service";
 import logo from "../img/main_logo.svg";
 
 interface IFooterLink {
@@ -29,7 +29,7 @@ interface IFooterData {
 export const Footer: React.FC = () => {
   const [sectionData, setSectionData] = useState<IFooterData>();
   const [spinner, setSpinner] = useState(true);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,25 +42,25 @@ export const Footer: React.FC = () => {
     };
     fetchData();
   }, []);
-  
-  const spinnerClass = 'footer_preloader';
-  
+
+  const spinnerClass = "footer_preloader";
+
   if (spinner || !sectionData) {
-    return <Preloader customClass={spinnerClass}/>;
+    return <Preloader customClass={spinnerClass} />;
   }
-  
-  const {footerBottomLine, footerTopLine} = sectionData;
-  
+
+  const { footerBottomLine, footerTopLine } = sectionData;
+
   return (
     <footer className="footer lighter_bg">
-      <div className="bg_noise"/>
+      <div className="bg_noise" />
       <div className="screen_content">
         <div className="footer_line top_line">
           <div className="footer_content">
             <div className="footer_content_left">
               <div className="main_logo">
                 <Link to="/">
-                  <img src={logo} alt="logo"/>
+                  <img src={logo} alt="logo" />
                 </Link>
               </div>
               <p>{footerTopLine.logoDescription}</p>

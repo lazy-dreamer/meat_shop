@@ -122,7 +122,6 @@ export function MainPage() {
   const [sectionsData, setSectionsData] = useState<MainPageData | undefined>();
   const [spinner, setSpinner] = useState(true);
   
-  
   useEffect(() => {
     const fetchData = async () => {
       const sectionsData: any = await ContentService.getMainPageSections()

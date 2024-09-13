@@ -6,7 +6,6 @@ import {clearDiscount, ICartItem, removeFromCart, setDiscount} from "../redux/ca
 import {AppDispatch, RootState} from "../redux/store";
 import {useDispatch, useSelector} from "react-redux";
 
-
 export function CartPage() {
   const dispatch: AppDispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
